@@ -1,4 +1,8 @@
+'use strict';
+
+/* jshint unused: true */
 var colors = require('colors');
+/* jshint unused: false */
 
 module.exports = function (gulp) {
 
@@ -6,6 +10,7 @@ module.exports = function (gulp) {
 
   gulp.task = function(name, help, dep, fn) {
 
+    /* jshint noempty: false */
     if (typeof help === 'function') {
       // .task('test', function(){})
       fn = undefined;
@@ -26,12 +31,10 @@ module.exports = function (gulp) {
       // not sure what they passed. Probably malformed. Just send through and let gulp handle it.
       return originalTaskFn.call(gulp, name, help, dep, fn);
     }
+    /* jshint noempty: true */
 
     originalTaskFn.call(gulp, name, dep, fn);
-    // in case of gulp testing. Should always exist in real use-case
-    if (gulp.tasks && gulp.tasks[name]) {
-      gulp.tasks[name].help = help;
-    }
+    gulp.tasks[name].help = help;
   };
 
   gulp.task('help', 'Display this help text', function () {
