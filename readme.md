@@ -1,4 +1,4 @@
-# gulp-help [![NPM version][npm-image]][npm-url]
+# gulp-help
 > Adds help task to [gulp](https://github.com/gulpjs/gulp) and the ability to provide help text to your custom gulp tasks
 
 ## Install
