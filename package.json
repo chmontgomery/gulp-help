@@ -1,6 +1,6 @@
 {
   "name": "gulp-help",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Adds help task to gulp and the ability to provide help text to your custom gulp tasks",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,12 @@
     "help",
     "tasks"
   ],
-  "author": "Chris Montgomery",
+  "repository": "chmontgomery/gulp-help",
+  "author": {
+    "name": "Chris Montgomery",
+    "email": "chr.montgomery@gmail.com",
+    "url": "http://www.chrismontgomery.info/"
+  },
   "license": "MIT",
   "dependencies": {
     "colors": "^0.6.2"
