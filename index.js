@@ -28,7 +28,10 @@ module.exports = function (gulp) {
     }
 
     originalTaskFn.call(gulp, name, dep, fn);
-    gulp.tasks[name].help = help;
+    // in case of gulp testing. Should always exist in real use-case
+    if (gulp.tasks && gulp.tasks[name]) {
+      gulp.tasks[name].help = help;
+    }
   };
 
   gulp.task('help', 'Display this help text', function () {
