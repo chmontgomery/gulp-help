@@ -1,4 +1,4 @@
-# gulp-help
+# gulp-help [![Build Status](https://travis-ci.org/chmontgomery/gulp-help.svg?branch=master)](https://travis-ci.org/chmontgomery/gulp-help)
 > Adds help task to [gulp](https://github.com/gulpjs/gulp) and the ability to provide help text to your custom gulp tasks
 
 ## Install
