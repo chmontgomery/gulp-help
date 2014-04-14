@@ -1,4 +1,4 @@
-# gulp-help [![Build Status](https://travis-ci.org/chmontgomery/gulp-help.svg?branch=master)](https://travis-ci.org/chmontgomery/gulp-help)
+# gulp-help [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 > Adds help task to [gulp](https://github.com/gulpjs/gulp) and the ability to provide help text to your custom gulp tasks
 
 ## Install
@@ -47,3 +47,8 @@ Available tasks:
 ## License
 
 [MIT](http://opensource.org/licenses/MIT) © [Chris Montgomery](http://www.chrismontgomery.info/)
+
+[npm-url]: https://npmjs.org/package/gulp-help
+[npm-image]: http://img.shields.io/npm/v/gulp-help.svg
+[travis-image]: https://travis-ci.org/chmontgomery/gulp-help.svg?branch=master
+[travis-url]: https://travis-ci.org/chmontgomery/gulp-help

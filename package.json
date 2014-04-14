@@ -1,6 +1,6 @@
 {
   "name": "gulp-help",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Adds help task to gulp and the ability to provide help text to your custom gulp tasks",
   "main": "index.js",
   "scripts": {
