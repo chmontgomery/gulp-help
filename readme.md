@@ -1,5 +1,5 @@
 # gulp-help
-> Adds help task to gulp and ability to provide help text for each task
+> Adds help task to [gulp](https://github.com/gulpjs/gulp) and the ability to provide help text to your custom gulp tasks
 
 ## Install
 

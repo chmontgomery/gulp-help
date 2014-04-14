@@ -1,14 +1,15 @@
 {
   "name": "gulp-help",
   "version": "0.0.1",
-  "description": "Adds help task to gulp and ability to provide help text for each task.",
+  "description": "Adds help task to gulp and the ability to provide help text to your custom gulp tasks",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "gulp",
-    "help"
+    "help",
+    "tasks"
   ],
   "author": "Chris Montgomery",
   "license": "MIT",
