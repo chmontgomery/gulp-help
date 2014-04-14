@@ -9,7 +9,10 @@
   "keywords": [
     "gulp",
     "help",
-    "tasks"
+    "tasks",
+    "list",
+    "gulpfriendly",
+    "gulpplugin"
   ],
   "repository": "chmontgomery/gulp-help",
   "author": {
