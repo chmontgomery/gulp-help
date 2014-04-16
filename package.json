@@ -25,7 +25,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "gulp-util": "^2.2.14"
+    "gulp-util": "^2.2.14",
+    "lodash": "^2.4.1"
   },
   "devDependencies": {
     "gulp": "^3.6.0",

@@ -44,6 +44,17 @@ Available tasks:
 [gulp] Finished 'help' in 607 μs
 ```
 
+## Options
+
+You can optionally hide a target from showing up in the help menu by passing `false` as the help argument, e.g.
+
+```js
+// gulpfile.js
+gulp.task('task-hidden-from-help', false, function () {
+    // todo
+});
+```
+
 ## License
 
 [MIT](http://opensource.org/licenses/MIT) © [Chris Montgomery](http://www.chrismontgomery.info/)

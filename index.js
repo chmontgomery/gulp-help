@@ -1,17 +1,24 @@
 'use strict';
 
-var gutil = require('gulp-util');
+var gutil = require('gulp-util'),
+  _ = require('lodash');
 
 module.exports = function (gulp) {
 
-  var originalTaskFn = gulp.task;
+  var originalTaskFn = gulp.task,
+    ignoredTasks = [];
 
   gulp.task = function (name, help, dep, fn) {
 
     var task;
 
     /* jshint noempty: false */
-    if (typeof help === 'function') {
+    if (help === false) {
+      // .task('test', false, function(){})
+      // nothing needs to be re-assigned
+      ignoredTasks.push(name);
+      return originalTaskFn.call(gulp, name, dep, fn);
+    } else if (typeof help === 'function') {
       // .task('test', function(){})
       fn = undefined;
       dep = help;
@@ -49,8 +56,10 @@ module.exports = function (gulp) {
     console.log('');
     console.log(gutil.colors.underline('Available tasks:'));
     tasks.forEach(function (name) {
-      var helpText = gulp.tasks[name].help || '';
-      console.log(' ', gutil.colors.cyan(name), helpText);
+      if (!_.contains(ignoredTasks, name)) {
+        var helpText = gulp.tasks[name].help || '';
+        console.log(' ', gutil.colors.cyan(name), helpText);
+      }
     });
     console.log('');
   });

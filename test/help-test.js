@@ -75,6 +75,19 @@ describe('help', function () {
       should(gulp.tasks.newStyle.help).eql('help text here');
     });
 
+    it('with disabled help text and no deps', function () {
+      gulp.task('newStyle', false, noop);
+      should(originalTaskFn.calledTwice).ok;
+      should(originalTaskFn.calledWith('newStyle', noop)).ok;
+      should(gulp.tasks.newStyle.help).eql(undefined);
+    });
+
+    it('with disabled help text and deps', function () {
+      gulp.task('newStyle', false, ['dep'], noop);
+      should(originalTaskFn.calledTwice).ok;
+      should(originalTaskFn.calledWith('newStyle', ['dep'], noop)).ok;
+      should(gulp.tasks.newStyle.help).eql(undefined);
+    });
   });
 
   describe('should fall through on error cases', function () {
