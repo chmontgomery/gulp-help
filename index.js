@@ -1,14 +1,14 @@
 'use strict';
 
-/* jshint unused: true */
-var colors = require('colors');
-/* jshint unused: false */
+var gutil = require('gulp-util');
 
 module.exports = function (gulp) {
 
   var originalTaskFn = gulp.task;
 
-  gulp.task = function(name, help, dep, fn) {
+  gulp.task = function (name, help, dep, fn) {
+
+    var task;
 
     /* jshint noempty: false */
     if (typeof help === 'function') {
@@ -34,20 +34,23 @@ module.exports = function (gulp) {
     /* jshint noempty: true */
 
     originalTaskFn.call(gulp, name, dep, fn);
-    gulp.tasks[name].help = help;
+    task = gulp.tasks[name];
+    if (task) {
+      task.help = help;
+    }
   };
 
   gulp.task('help', 'Display this help text', function () {
     var tasks = Object.keys(gulp.tasks).sort();
 
     console.log('');
-    console.log('Usage:'.underline);
+    console.log(gutil.colors.underline('Usage:'));
     console.log('  gulp [task]');
     console.log('');
-    console.log('Available tasks:'.underline);
-    tasks.forEach(function(name) {
+    console.log(gutil.colors.underline('Available tasks:'));
+    tasks.forEach(function (name) {
       var helpText = gulp.tasks[name].help || '';
-      console.log(' ', name.cyan, helpText);
+      console.log(' ', gutil.colors.cyan(name), helpText);
     });
     console.log('');
   });
