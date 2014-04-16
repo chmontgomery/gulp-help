@@ -1,6 +1,6 @@
 {
   "name": "gulp-help",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Adds help task to gulp and the ability to provide help text to your custom gulp tasks",
   "main": "index.js",
   "scripts": {
@@ -33,7 +33,6 @@
     "should": "^3.3.0",
     "sinon": "^1.9.1",
     "gulp-jshint": "^1.5.3",
-    "jshint-stylish": "^0.1.5",
-    "gulp-util": "^2.2.14"
+    "jshint-stylish": "^0.1.5"
   }
 }
