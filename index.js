@@ -64,5 +64,5 @@ module.exports = function (gulp) {
     console.log('');
   });
 
-  gulp.task('default', ['help']);
+  gulp.task('default', false, ['help']);
 };
