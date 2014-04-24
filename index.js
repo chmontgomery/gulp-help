@@ -48,7 +48,10 @@ module.exports = function (gulp) {
   };
 
   gulp.task('help', 'Display this help text', function () {
-    var tasks = Object.keys(gulp.tasks).sort();
+    var tasks  = Object.keys(gulp.tasks).sort();
+    var margin = tasks.reduce(function(m, taskName) {
+      return (m > taskName.length) ? m : taskName.length;
+    }, 0);
 
     console.log('');
     console.log(gutil.colors.underline('Usage:'));
@@ -58,7 +61,12 @@ module.exports = function (gulp) {
     tasks.forEach(function (name) {
       if (!_.contains(ignoredTasks, name)) {
         var helpText = gulp.tasks[name].help || '';
-        console.log(' ', gutil.colors.cyan(name), helpText);
+        var args     = [' ', gutil.colors.cyan(name)];
+
+        args.push(new Array(margin - name.length + 1).join(" "));
+        args.push(helpText);
+
+        console.log.apply(console, args);
       }
     });
     console.log('');
