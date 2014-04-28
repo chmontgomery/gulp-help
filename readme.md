@@ -34,25 +34,82 @@ Now show that help via `gulp help`
 $ gulp help
 [gulp] Running 'help'...
 
-Usage:
+Usage
   gulp [task]
 
-Available tasks:
-  help Display this help text
+Available tasks
+  help Display this help text.
   lint Lints all server side js
 
 [gulp] Finished 'help' in 607 μs
 ```
 
-## Options
+## Hide Tasks
 
 You can optionally hide a target from showing up in the help menu by passing `false` as the help argument, e.g.
 
 ```js
-// gulpfile.js
 gulp.task('task-hidden-from-help', false, function () {
-    // todo
+  // ...
 });
+```
+
+## Aliases
+
+You can optionally add aliases to your targets by supplying an object with an aliases array, e.g.
+
+```js
+gulp.task('version', 'prints the version.', [], function() {
+  // ...
+}, {
+  aliases: ['v', 'V']
+});
+```
+
+which results in
+
+```bash
+[gulp] Starting 'help'...
+
+Usage
+  gulp [task]
+
+Available tasks
+  help     Display this help text.
+  version  prints the version. Aliases: v, V
+
+[gulp] Finished 'help' after 928 μs
+```
+
+## Override default help message
+
+Lastly, you can even override the built in help message
+
+```js
+require('gulp-help')(gulp, { description: 'you are looking at it.', aliases: ['h', '?'] });
+```
+
+=>
+
+```bash
+node_modules/.bin/gulp
+node_modules/.bin/gulp help
+node_modules/.bin/gulp h
+node_modules/.bin/gulp ?
+```
+
+=>
+
+```bash
+[gulp] Starting 'help'...
+
+Usage:
+  gulp [task]
+
+Available tasks:
+  help     you are looking at it. Aliases: h, ?
+
+[gulp] Finished 'help' after 1.05 ms
 ```
 
 ## License
