@@ -3,14 +3,23 @@
 var gutil = require('gulp-util'),
   _ = require('lodash');
 
-module.exports = function (gulp) {
-
+var gulpHelp = module.exports = function (gulp, options) {
   var originalTaskFn = gulp.task,
     ignoredTasks = [];
 
-  gulp.task = function (name, help, dep, fn) {
+  options = _.extend({
+    aliases: [],
+    description: 'Display this help text.'
+  }, options);
 
+
+
+  gulp.task = function (name, help, dep, fn, options) {
     var task;
+
+    options = _.extend({
+      aliases: []
+    }, options);
 
     /* jshint noempty: false */
     if (help === false) {
@@ -42,12 +51,21 @@ module.exports = function (gulp) {
 
     originalTaskFn.call(gulp, name, dep, fn);
     task = gulp.tasks[name];
+
+    if (options.aliases.length > 0) {
+      options.aliases.forEach(function(alias) {
+        gulp.task(alias, false, [ name ], gulpHelp.noop);
+      });
+
+      help = help + " Aliases: " + options.aliases.join(", ");
+    }
+
     if (task) {
       task.help = help;
     }
   };
 
-  gulp.task('help', 'Display this help text', function () {
+  gulp.task('help', options.description, [], function () {
     var tasks  = Object.keys(gulp.tasks).sort();
     var margin = tasks.reduce(function(m, taskName) {
       return (m > taskName.length) ? m : taskName.length;
@@ -70,7 +88,9 @@ module.exports = function (gulp) {
       }
     });
     console.log('');
-  });
+  }, options);
 
   gulp.task('default', false, ['help']);
 };
+
+gulpHelp.noop = function(){};

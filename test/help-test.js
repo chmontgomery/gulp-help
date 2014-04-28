@@ -25,7 +25,22 @@ describe('help', function () {
     gulpHelp(gulp);
     should(originalTaskFn.calledTwice).ok;
     should(originalTaskFn.calledWith('default', ['help'])).ok;
-    should(gulp.tasks.help.help).eql('Display this help text');
+    should(gulp.tasks.help.help).eql('Display this help text.');
+  });
+
+  it('should have a custom help text if passed', function () {
+    gulp = sinon.stub({task: noop, tasks: { help: {} }});
+    gulpHelp(gulp, { description: 'help text.' });
+    should(gulp.tasks.help.help).eql('help text.');
+  });
+
+  it('should create an alias if passed', function () {
+    gulp = sinon.stub({task: noop, tasks: { help: {} }});
+    originalTaskFn = gulp.task;
+    gulpHelp(gulp, { aliases: ['h', '?'] });
+    should(gulp.tasks.help.help).eql('Display this help text. Aliases: h, ?');
+    should(originalTaskFn.calledWith('h', ['help'])).ok;
+    should(originalTaskFn.calledWith('?', ['help'])).ok;
   });
 
   describe('should support old task definitions', function () {
@@ -88,6 +103,15 @@ describe('help', function () {
       should(originalTaskFn.calledThrice).ok;
       should(originalTaskFn.calledWith('newStyle', ['dep'], noop)).ok;
       should(gulp.tasks.newStyle.help).eql(undefined);
+    });
+
+    it('with aliases', function () {
+      gulp.task('newStyle', 'description.', [], noop, { aliases: ['new-style', 'nstyle'] });
+      should(originalTaskFn.callCount).eql(5);
+      should(originalTaskFn.calledWith('newStyle', [], noop)).ok;
+      should(originalTaskFn.calledWith('new-style', ['newStyle'], gulpHelp.noop)).ok;
+      should(originalTaskFn.calledWith('nstyle', ['newStyle'], gulpHelp.noop)).ok;
+      should(gulp.tasks.newStyle.help).eql('description. Aliases: new-style, nstyle');
     });
   });
 
