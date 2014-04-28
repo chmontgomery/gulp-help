@@ -12,14 +12,8 @@ var gulpHelp = module.exports = function (gulp, options) {
     description: 'Display this help text.'
   }, options);
 
-
-
-  gulp.task = function (name, help, dep, fn, options) {
+  gulp.task = function (name, help, dep, fn, taskOptions) {
     var task;
-
-    options = _.extend({
-      aliases: []
-    }, options);
 
     /* jshint noempty: false */
     if (help === false) {
@@ -29,6 +23,7 @@ var gulpHelp = module.exports = function (gulp, options) {
       return originalTaskFn.call(gulp, name, dep, fn);
     } else if (typeof help === 'function') {
       // .task('test', function(){})
+      taskOptions = dep;
       fn = undefined;
       dep = help;
       help = undefined;
@@ -39,7 +34,8 @@ var gulpHelp = module.exports = function (gulp, options) {
       help = undefined;
     } else if (typeof dep === 'function') {
       // .task('test', '...', function(){})
-      // nothing needs to be re-assigned
+      taskOptions = fn;
+      fn = undefined;
     } else if (Array.isArray(dep)) {
       // .task('test', '...', ['dep'], function(){})
       // nothing needs to be re-assigned
@@ -49,15 +45,19 @@ var gulpHelp = module.exports = function (gulp, options) {
     }
     /* jshint noempty: true */
 
+    taskOptions = _.extend({
+      aliases: []
+    }, taskOptions);
+
     originalTaskFn.call(gulp, name, dep, fn);
     task = gulp.tasks[name];
 
-    if (options.aliases.length > 0) {
-      options.aliases.forEach(function(alias) {
+    if (taskOptions.aliases.length > 0) {
+      taskOptions.aliases.forEach(function(alias) {
         gulp.task(alias, false, [ name ], gulpHelp.noop);
       });
 
-      help = help + " Aliases: " + options.aliases.join(", ");
+      help = (help ? help + ' ' : '') + 'Aliases: ' + taskOptions.aliases.join(', ');
     }
 
     if (task) {
@@ -72,10 +72,10 @@ var gulpHelp = module.exports = function (gulp, options) {
     }, 0);
 
     console.log('');
-    console.log(gutil.colors.underline('Usage:'));
+    console.log(gutil.colors.underline('Usage'));
     console.log('  gulp [task]');
     console.log('');
-    console.log(gutil.colors.underline('Available tasks:'));
+    console.log(gutil.colors.underline('Available tasks'));
     tasks.forEach(function (name) {
       if (!_.contains(ignoredTasks, name)) {
         var helpText = gulp.tasks[name].help || '';
