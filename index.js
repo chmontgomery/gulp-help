@@ -9,7 +9,8 @@ var gulpHelp = module.exports = function (gulp, options) {
 
   options = _.extend({
     aliases: [],
-    description: 'Display this help text.'
+    description: 'Display this help text.',
+    afterPrintCallback: gulpHelp.noop
   }, options);
 
   gulp.task = function (name, help, dep, fn, taskOptions) {
@@ -88,6 +89,9 @@ var gulpHelp = module.exports = function (gulp, options) {
       }
     });
     console.log('');
+    if (options.afterPrintCallback) {
+      options.afterPrintCallback(gulp.tasks);
+    }
   }, options);
 
   gulp.task('default', false, ['help']);
