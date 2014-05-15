@@ -1,6 +1,6 @@
 {
   "name": "gulp-help",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Adds help task to gulp and the ability to provide help text to your custom gulp tasks",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
     "url": "http://www.chrismontgomery.info/"
   },
   "engines": {
-    "node": ">= 0.9"
+    "node": ">= 0.10"
   },
   "license": "MIT",
   "dependencies": {
