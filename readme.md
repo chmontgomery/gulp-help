@@ -83,8 +83,6 @@ Available tasks
 
 ## Override default help message
 
-Lastly, you can even override the built in help message
-
 ```js
 require('gulp-help')(gulp, { description: 'you are looking at it.', aliases: ['h', '?'] });
 ```
@@ -110,6 +108,18 @@ Available tasks:
   help     you are looking at it. Aliases: h, ?
 
 [gulp] Finished 'help' after 1.05 ms
+```
+
+## Post-help callback
+
+You can define a function to run after the default help task runs.
+
+```js
+require('gulp-help')(gulp, {
+  afterPrintCallback: function(tasks) {
+    console.log(tasks);
+  }
+});
 ```
 
 ## License
