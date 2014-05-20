@@ -69,7 +69,7 @@ var gulpHelp = module.exports = function (gulp, options) {
   gulp.task('help', options.description, [], function () {
     var tasks  = Object.keys(gulp.tasks).sort();
     var margin = tasks.reduce(function(m, taskName) {
-      if ((ignoredTasks.indexOf(taskName) > -1) || (m > taskName.length)) {
+      if (_.contains(ignoredTasks, taskName) || (m > taskName.length)) {
         return m;
       } else {
         return taskName.length;
