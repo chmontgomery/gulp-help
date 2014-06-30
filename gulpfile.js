@@ -14,7 +14,8 @@ function errorLogger(err) {
 function lint() {
   return gulp.src([
     './**/*.js',
-    '!./node_modules/**/*.js'
+    '!**/node_modules/**/*.js',
+    '!**/examples/**/*.js'
   ])
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(stylish))

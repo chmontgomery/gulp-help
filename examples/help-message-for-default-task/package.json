@@ -1,0 +1,14 @@
+{
+  "name": "help-message-for-default-task",
+  "version": "0.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "3.8.5"
+  }
+}

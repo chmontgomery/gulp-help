@@ -16,6 +16,13 @@ var gulpHelp = module.exports = function (gulp, options) {
   gulp.task = function (name, help, dep, fn, taskOptions) {
     var task;
 
+    if (_.contains(ignoredTasks, name)) {
+      // previously ignored. Unignore and re-run logic below
+      _.remove(ignoredTasks, function (taskName) {
+        return name === taskName;
+      });
+    }
+
     /* jshint noempty: false */
     if (help === false) {
       // .task('test', false, function(){})
@@ -54,7 +61,7 @@ var gulpHelp = module.exports = function (gulp, options) {
     task = gulp.tasks[name];
 
     if (taskOptions.aliases.length > 0) {
-      taskOptions.aliases.forEach(function(alias) {
+      taskOptions.aliases.forEach(function (alias) {
         gulp.task(alias, false, [ name ], gulpHelp.noop);
       });
 
@@ -67,8 +74,8 @@ var gulpHelp = module.exports = function (gulp, options) {
   };
 
   gulp.task('help', options.description, [], function () {
-    var tasks  = Object.keys(gulp.tasks).sort();
-    var margin = tasks.reduce(function(m, taskName) {
+    var tasks = Object.keys(gulp.tasks).sort();
+    var margin = tasks.reduce(function (m, taskName) {
       if (_.contains(ignoredTasks, taskName) || (m > taskName.length)) {
         return m;
       } else {
@@ -84,7 +91,7 @@ var gulpHelp = module.exports = function (gulp, options) {
     tasks.forEach(function (name) {
       if (!_.contains(ignoredTasks, name)) {
         var helpText = gulp.tasks[name].help || '';
-        var args     = [' ', gutil.colors.cyan(name)];
+        var args = [' ', gutil.colors.cyan(name)];
 
         args.push(new Array(margin - name.length + 1).join(" "));
         args.push(helpText);
@@ -101,4 +108,5 @@ var gulpHelp = module.exports = function (gulp, options) {
   gulp.task('default', false, ['help']);
 };
 
-gulpHelp.noop = function(){};
+gulpHelp.noop = function () {
+};

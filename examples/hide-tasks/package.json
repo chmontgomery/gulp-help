@@ -1,0 +1,17 @@
+{
+  "name": "hide-tasks",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "3.8.5",
+    "gulp-jshint": "^1.6.3",
+    "gulp-util": "^2.2.19",
+    "map-stream": "^0.1.0"
+  }
+}
