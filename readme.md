@@ -1,5 +1,5 @@
-# gulp-help [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
-> Adds a help task to [gulp](https://github.com/gulpjs/gulp) and the ability to provide a custom help message to your gulp tasks
+# [gulp](https://github.com/gulpjs/gulp)-help [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
+> Adds a default help task to gulp and provides the ability to add custom help messages to your gulp tasks
 
 ## Install
 
