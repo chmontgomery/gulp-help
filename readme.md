@@ -1,5 +1,5 @@
 # gulp-help [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
-> Adds help task to [gulp](https://github.com/gulpjs/gulp) and the ability to provide help text to your custom gulp tasks
+> Adds a help task to [gulp](https://github.com/gulpjs/gulp) and the ability to provide a custom help message to your gulp tasks
 
 ## Install
 
@@ -9,22 +9,21 @@ $ npm install --save-dev gulp-help
 
 ## Usage
 
-Before defining any tasks, add `gulp help` to the gulp instance
+Before defining any tasks, add `gulp help` to your gulp instance
 
 ```js
 // gulpfile.js
+var gulp = require('gulp');
 require('gulp-help')(gulp);
 ```
 
-Next, define help text for each task
+Next, define help text for each custom task
 
 ```js
 // gulpfile.js
 gulp.task('lint', 'Lints all server side js', function () {
     gulp.src('./lib/**/*.js')
-      .pipe(jshint(jshintrcPath))
-      .pipe(jshint.reporter(stylish))
-      .pipe(jshint.reporter('fail'));
+      .pipe(jshint());
 });
 ```
 
@@ -43,6 +42,35 @@ Available tasks
 
 [gulp] Finished 'help' in 607 μs
 ```
+
+## New task API
+
+### gulp.task(name[, help, deps, fn, taskOptions])
+
+#### [name](https://github.com/gulpjs/gulp/blob/master/docs/API.md#name)
+
+Type: `string`
+
+#### help
+
+Type: `string | boolean`
+
+Custom help message as a string.
+If you want to hide the task from the help menu, supply `false`.
+
+#### [deps](https://github.com/gulpjs/gulp/blob/master/docs/API.md#deps)
+
+Type: `Array`
+
+#### [fn](https://github.com/gulpjs/gulp/blob/master/docs/API.md#fn)
+
+Type: `function`
+
+#### taskOptions.aliases
+
+Type: `Array`
+
+List of aliases for this task.
 
 ## Hide Tasks
 
@@ -87,18 +115,18 @@ Available tasks
 require('gulp-help')(gulp, { description: 'you are looking at it.', aliases: ['h', '?'] });
 ```
 
-=>
+Then, calling
 
-```bash
-node_modules/.bin/gulp
-node_modules/.bin/gulp help
-node_modules/.bin/gulp h
-node_modules/.bin/gulp ?
+```shell
+$ gulp      #or
+$ gulp help #or
+$ gulp h    #or
+$ gulp ?
 ```
 
-=>
+will now result in
 
-```bash
+```
 [gulp] Starting 'help'...
 
 Usage:

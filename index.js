@@ -3,17 +3,28 @@
 var gutil = require('gulp-util'),
   _ = require('lodash');
 
-var gulpHelp = module.exports = function (gulp, options) {
+module.exports = function (gulp, options) {
   var originalTaskFn = gulp.task,
     ignoredTasks = [];
 
   options = _.extend({
     aliases: [],
     description: 'Display this help text.',
-    afterPrintCallback: gulpHelp.noop
+    afterPrintCallback: gutil.noop
   }, options);
 
-  gulp.task = function (name, help, dep, fn, taskOptions) {
+  /**
+   * gulp.task(name[, help, deps, fn, taskOptions])
+   *
+   * Adds `help` and `taskOptions` to the typical gulp task definition:
+   * https://github.com/gulpjs/gulp/blob/master/docs/API.md#gulptaskname-deps-fn
+   * @param {string} name
+   * @param {boolean} [help]
+   * @param {Array} [deps]
+   * @param {function} [fn]
+   * @param {object} [taskOptions]
+   */
+  gulp.task = function (name, help, deps, fn, taskOptions) {
     var task;
 
     if (_.contains(ignoredTasks, name)) {
@@ -25,55 +36,68 @@ var gulpHelp = module.exports = function (gulp, options) {
 
     /* jshint noempty: false */
     if (help === false) {
-      // .task('test', false, function(){})
-      // nothing needs to be re-assigned
+      // .task('test', false, ...)
       ignoredTasks.push(name);
-      return originalTaskFn.call(gulp, name, dep, fn);
+      if (typeof deps === 'function') {
+        // .task('test', false, function(){}, {})
+        taskOptions = fn;
+        fn = deps;
+        deps = undefined;
+      } else {
+        // .task('test', false, ['dep'], function(){}, {})
+        // nothing needs to be re-assigned
+      }
     } else if (typeof help === 'function') {
       // .task('test', function(){})
-      taskOptions = dep;
+      taskOptions = deps;
       fn = undefined;
-      dep = help;
+      deps = help;
       help = undefined;
-    } else if (Array.isArray(help) && typeof dep === 'function') {
-      // .task('test', ['dep'], function(){})
-      fn = dep;
-      dep = help;
-      help = undefined;
-    } else if (typeof dep === 'function') {
-      // .task('test', '...', function(){})
+    } else if (Array.isArray(help) && typeof deps === 'function') {
+      // .task('test', ['dep'], function(){}, {})
       taskOptions = fn;
-      fn = undefined;
-    } else if (Array.isArray(dep)) {
-      // .task('test', '...', ['dep'], function(){})
+      fn = deps;
+      deps = help;
+      help = undefined;
+    } else if (typeof deps === 'function') {
+      // .task('test', '...', function, {})
+      taskOptions = fn;
+      fn = deps;
+      deps = undefined;
+    } else if (Array.isArray(deps)) {
+      // .task('test', '...', ['dep'], function, {})
       // nothing needs to be re-assigned
     } else {
-      // not sure what they passed. Probably malformed. Just send through and let gulp handle it.
-      return originalTaskFn.call(gulp, name, help, dep, fn);
+      throw new gutil.PluginError('gulp-help', 'Unexpected arg types. Should be in the form: `gulp.task(name[, help, deps, fn, taskOptions])`');
     }
-    /* jshint noempty: true */
+
+    if (!deps) {
+      originalTaskFn.call(gulp, name, fn);
+    } else {
+      originalTaskFn.call(gulp, name, deps, fn);
+    }
+
+    task = gulp.tasks[name];
 
     taskOptions = _.extend({
       aliases: []
     }, taskOptions);
 
-    originalTaskFn.call(gulp, name, dep, fn);
-    task = gulp.tasks[name];
 
-    if (taskOptions.aliases.length > 0) {
-      taskOptions.aliases.forEach(function (alias) {
-        gulp.task(alias, false, [ name ], gulpHelp.noop);
-      });
+    taskOptions.aliases.forEach(function (alias) {
+      gulp.task(alias, false, [ name ], gutil.noop);
+    });
 
-      help = (help ? help + ' ' : '') + 'Aliases: ' + taskOptions.aliases.join(', ');
-    }
-
-    if (task) {
+    if (task && help !== false) {
+      if (taskOptions.aliases.length > 0) {
+        help = (help ? help + ' ' : '') + 'Aliases: ' + taskOptions.aliases.join(', ');
+      }
       task.help = help;
     }
+
   };
 
-  gulp.task('help', options.description, [], function () {
+  gulp.task('help', options.description, function () {
     var tasks = Object.keys(gulp.tasks).sort();
     var margin = tasks.reduce(function (m, taskName) {
       if (_.contains(ignoredTasks, taskName) || (m > taskName.length)) {
@@ -106,7 +130,4 @@ var gulpHelp = module.exports = function (gulp, options) {
   }, options);
 
   gulp.task('default', false, ['help']);
-};
-
-gulpHelp.noop = function () {
 };

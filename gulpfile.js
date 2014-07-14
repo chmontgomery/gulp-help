@@ -13,9 +13,7 @@ function errorLogger(err) {
 
 function lint() {
   return gulp.src([
-    './**/*.js',
-    '!**/node_modules/**/*.js',
-    '!**/examples/**/*.js'
+    './*.js'
   ])
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(stylish))
@@ -24,7 +22,7 @@ function lint() {
 }
 
 function test() {
-  return gulp.src('./test/**/*.js')
+  return gulp.src('./tests.js')
     .pipe(mocha({reporter: 'dot'}))
     .on('error', errorLogger);
 }
@@ -48,8 +46,7 @@ gulp.task('test-watch', ['lint-watch'], function () {
 
 gulp.task('watch', function () {
   gulp.watch([
-    './**/*.js',
-    '!./node_modules/**/*.js'
+    './*.js'
   ], ['test-watch']);
 });
 
