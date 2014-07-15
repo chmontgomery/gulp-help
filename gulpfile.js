@@ -4,7 +4,9 @@ var gulp = require('gulp'),
   jshint = require('gulp-jshint'),
   stylish = require('jshint-stylish'),
   gutil = require('gulp-util'),
-  mocha = require('gulp-mocha');
+  mocha = require('gulp-mocha'),
+  nicePackage = require('gulp-nice-package'),
+  shrinkwrap = require('gulp-shrinkwrap');
 
 function errorLogger(err) {
   gutil.beep();
@@ -31,7 +33,7 @@ gulp.task('lint', function () {
   return lint();
 });
 
-gulp.task('test', ['lint'], function () {
+gulp.task('test', function () {
   return test();
 });
 
@@ -39,15 +41,28 @@ gulp.task('test', ['lint'], function () {
 gulp.task('lint-watch', function () {
   lint();
 });
-
-gulp.task('test-watch', ['lint-watch'], function () {
+gulp.task('test-watch', function () {
   test();
 });
 
 gulp.task('watch', function () {
   gulp.watch([
     './*.js'
-  ], ['test-watch']);
+  ], ['test-watch', 'lint-watch']);
+});
+
+gulp.task('nice-package', function () {
+  return gulp.src('package.json')
+    .pipe(nicePackage({
+      recommendations: false
+    }));
+});
+
+gulp.task('shrinkwrap', function () {
+  return gulp.src('package.json')
+    .pipe(shrinkwrap())
+    .pipe(gulp.dest('./'));
 });
 
 gulp.task('default', ['watch']);
+gulp.task('ci', ['lint', 'test', 'nice-package']);
