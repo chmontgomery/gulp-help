@@ -1,16 +1,18 @@
 'use strict';
 
 var gutil = require('gulp-util'),
-  _ = require('lodash');
+  _ = require('lodash'),
+  attachHelp = require('./lib/attach-help.js'),
+  DEFAULT_OPTIONS = {
+    aliases: [],
+    description: 'Display this help text.',
+    afterPrintCallback: gutil.noop
+  };
 
 module.exports = function (gulp, options) {
   var originalTaskFn = gulp.task;
 
-  options = _.extend({
-    aliases: [],
-    description: 'Display this help text.',
-    afterPrintCallback: gutil.noop
-  }, options);
+  options = _.defaults({}, options, DEFAULT_OPTIONS);
 
   /**
    * gulp.task(name[, help, deps, fn, taskOptions])
@@ -122,18 +124,3 @@ module.exports = function (gulp, options) {
 
   gulp.task('default', false, ['help']);
 };
-
-function attachHelp(task, msg, aliases) {
-  if (task && msg !== false) {
-    msg = (typeof msg === 'string') ? msg : '';
-    if (aliases && aliases.length > 0) {
-      if (msg.length > 0) {
-        msg += ' ';
-      }
-      msg += 'Aliases: ' + aliases.join(', ');
-    }
-    task.help = {
-      message: msg
-    };
-  }
-}
