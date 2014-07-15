@@ -25,15 +25,15 @@
   },
   "license": "MIT",
   "dependencies": {
-    "gulp-util": "2.2.19",
-    "lodash": "2.4.1"
+    "gulp-util": "^2.2.20",
+    "lodash": "^2.4.1"
   },
   "devDependencies": {
     "gulp": "3.8.5",
-    "gulp-jshint": "1.6.3",
-    "gulp-mocha": "0.4.1",
-    "jshint-stylish": "0.1.5",
-    "should": "3.3.0",
-    "sinon": "1.9.1"
+    "gulp-jshint": "^1.7.1",
+    "gulp-mocha": "^0.5.1",
+    "jshint-stylish": "^0.4.0",
+    "should": "^4.0.4",
+    "sinon": "^1.10.3"
   }
 }

@@ -43,6 +43,9 @@ gulp.task('watch', 'Watch files and run ci validation on change', ['ci-watch']);
 
 gulp.task('combo', ['ci']);
 
+gulp.task('a-super-long-task-name');
+gulp.task('a-super-long-task-name-that-is-ignored-and-not-counted-for-margins', false);
+
 // --------------------------------------------------------------------------------------
 // helper functions
 // --------------------------------------------------------------------------------------

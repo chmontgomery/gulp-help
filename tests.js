@@ -23,20 +23,20 @@ describe('help', function () {
     gulpHelp(gulp);
     should(originalTaskFn.calledTwice).ok;
     should(originalTaskFn.calledWith('default', ['help'])).ok;
-    should(gulp.tasks.help.help).eql('Display this help text.');
+    should(gulp.tasks.help.help.message).eql('Display this help text.');
   });
 
   it('should have a custom help text if passed', function () {
     gulp = sinon.stub({task: gutil.noop, tasks: { help: {} }});
     gulpHelp(gulp, { description: 'help text.' });
-    should(gulp.tasks.help.help).eql('help text.');
+    should(gulp.tasks.help.help.message).eql('help text.');
   });
 
   it('should create an alias if passed', function () {
     gulp = sinon.stub({task: gutil.noop, tasks: { help: {} }});
     originalTaskFn = gulp.task;
     gulpHelp(gulp, { aliases: ['h', '?'] });
-    should(gulp.tasks.help.help).eql('Display this help text. Aliases: h, ?');
+    should(gulp.tasks.help.help.message).eql('Display this help text. Aliases: h, ?');
     should(originalTaskFn.calledWith('h', ['help'])).ok;
     should(originalTaskFn.calledWith('?', ['help'])).ok;
   });
@@ -54,35 +54,40 @@ describe('help', function () {
       gulp.task('oldStyle');
       should(originalTaskFn.calledThrice).ok;
       should(originalTaskFn.calledWith('oldStyle')).ok;
-      should(gulp.tasks.oldStyle.help).eql(undefined);
+      should(gulp.tasks.oldStyle.help).ok;
+      should(gulp.tasks.oldStyle.help.message).eql('');
     });
 
     it('with nothing null', function () {
       gulp.task('oldStyle', null);
       should(originalTaskFn.calledThrice).ok;
       should(originalTaskFn.calledWith('oldStyle')).ok;
-      should(gulp.tasks.oldStyle.help).eql(undefined);
+      should(gulp.tasks.oldStyle.help).ok;
+      should(gulp.tasks.oldStyle.help.message).eql('');
     });
 
     it('with func', function () {
       gulp.task('oldStyle', gutil.noop);
       should(originalTaskFn.calledThrice).ok;
       should(originalTaskFn.calledWith('oldStyle', gutil.noop)).ok;
-      should(gulp.tasks.oldStyle.help).eql(undefined);
+      should(gulp.tasks.oldStyle.help).ok;
+      should(gulp.tasks.oldStyle.help.message).eql('');
     });
 
     it('with deps and func', function () {
       gulp.task('oldStyle', ['dep'], gutil.noop);
       should(originalTaskFn.calledThrice).ok;
       should(originalTaskFn.calledWith('oldStyle', ['dep'], gutil.noop)).ok;
-      should(gulp.tasks.oldStyle.help).eql(undefined);
+      should(gulp.tasks.oldStyle.help).ok;
+      should(gulp.tasks.oldStyle.help.message).eql('');
     });
 
     it('with deps and no func', function () {
       gulp.task('oldStyle', ['dep']);
       should(originalTaskFn.calledThrice).ok;
       should(originalTaskFn.calledWith('oldStyle', ['dep'])).ok;
-      should(gulp.tasks.oldStyle.help).eql(undefined);
+      should(gulp.tasks.oldStyle.help).ok;
+      should(gulp.tasks.oldStyle.help.message).eql('');
     });
 
   });
@@ -100,21 +105,40 @@ describe('help', function () {
       gulp.task('newStyle', 'help text here');
       should(originalTaskFn.callCount).eql(3);
       should(originalTaskFn.calledWith('newStyle')).ok;
-      should(gulp.tasks.newStyle.help).eql('help text here');
+      should(gulp.tasks.newStyle.help).ok;
+      should(gulp.tasks.newStyle.help.message).eql('help text here');
     });
 
     it('with help text and no deps', function () {
       gulp.task('newStyle', 'help text here', gutil.noop);
       should(originalTaskFn.callCount).eql(3);
       should(originalTaskFn.calledWith('newStyle', gutil.noop)).ok;
-      should(gulp.tasks.newStyle.help).eql('help text here');
+      should(gulp.tasks.newStyle.help).ok;
+      should(gulp.tasks.newStyle.help.message).eql('help text here');
     });
 
     it('with help text and deps', function () {
       gulp.task('newStyle', 'help text here', ['dep'], gutil.noop);
       should(originalTaskFn.callCount).eql(3);
       should(originalTaskFn.calledWith('newStyle', ['dep'], gutil.noop)).ok;
-      should(gulp.tasks.newStyle.help).eql('help text here');
+      should(gulp.tasks.newStyle.help).ok;
+      should(gulp.tasks.newStyle.help.message).eql('help text here');
+    });
+
+    it('with help text', function () {
+      gulp.task('newStyle', true);
+      should(originalTaskFn.callCount).eql(3);
+      should(originalTaskFn.calledWith('newStyle')).ok;
+      should(gulp.tasks.newStyle.help).ok;
+      should(gulp.tasks.newStyle.help.message).eql('');
+    });
+
+    it('with help text null', function () {
+      gulp.task('newStyle', null);
+      should(originalTaskFn.callCount).eql(3);
+      should(originalTaskFn.calledWith('newStyle')).ok;
+      should(gulp.tasks.newStyle.help).ok;
+      should(gulp.tasks.newStyle.help.message).eql('');
     });
 
     it('with disabled help text and no deps', function () {
@@ -137,7 +161,8 @@ describe('help', function () {
       should(originalTaskFn.calledWith('newStyle', ['dep'], gutil.noop)).ok;
       should(originalTaskFn.calledWith('new-style', ['newStyle'], gutil.noop)).ok;
       should(originalTaskFn.calledWith('nstyle', ['newStyle'], gutil.noop)).ok;
-      should(gulp.tasks.newStyle.help).eql('description. Aliases: new-style, nstyle');
+      should(gulp.tasks.newStyle.help).ok;
+      should(gulp.tasks.newStyle.help.message).eql('description. Aliases: new-style, nstyle');
     });
 
     it('with aliases no help', function () {
@@ -146,7 +171,8 @@ describe('help', function () {
       should(originalTaskFn.calledWith('newStyle', ['dep'], gutil.noop)).ok;
       should(originalTaskFn.calledWith('new-style', ['newStyle'], gutil.noop)).ok;
       should(originalTaskFn.calledWith('nstyle', ['newStyle'], gutil.noop)).ok;
-      should(gulp.tasks.newStyle.help).eql('Aliases: new-style, nstyle');
+      should(gulp.tasks.newStyle.help).ok;
+      should(gulp.tasks.newStyle.help.message).eql('Aliases: new-style, nstyle');
     });
 
     it('with aliases no deps', function () {
@@ -155,7 +181,8 @@ describe('help', function () {
       should(originalTaskFn.calledWith('newStyle', gutil.noop)).ok;
       should(originalTaskFn.calledWith('new-style', ['newStyle'], gutil.noop)).ok;
       should(originalTaskFn.calledWith('nstyle', ['newStyle'], gutil.noop)).ok;
-      should(gulp.tasks.newStyle.help).eql('description. Aliases: new-style, nstyle');
+      should(gulp.tasks.newStyle.help).ok;
+      should(gulp.tasks.newStyle.help.message).eql('description. Aliases: new-style, nstyle');
     });
 
     it('with aliases, disabled help and no deps', function () {
@@ -173,7 +200,8 @@ describe('help', function () {
       should(originalTaskFn.calledWith('newStyle', gutil.noop)).ok;
       should(originalTaskFn.calledWith('new-style', ['newStyle'], gutil.noop)).ok;
       should(originalTaskFn.calledWith('nstyle', ['newStyle'], gutil.noop)).ok;
-      should(gulp.tasks.newStyle.help).eql('Aliases: new-style, nstyle');
+      should(gulp.tasks.newStyle.help).ok;
+      should(gulp.tasks.newStyle.help.message).eql('Aliases: new-style, nstyle');
     });
   });
 

@@ -4,8 +4,7 @@ var gutil = require('gulp-util'),
   _ = require('lodash');
 
 module.exports = function (gulp, options) {
-  var originalTaskFn = gulp.task,
-    ignoredTasks = [];
+  var originalTaskFn = gulp.task;
 
   options = _.extend({
     aliases: [],
@@ -19,7 +18,7 @@ module.exports = function (gulp, options) {
    * Adds `help` and `taskOptions` to the typical gulp task definition:
    * https://github.com/gulpjs/gulp/blob/master/docs/API.md#gulptaskname-deps-fn
    * @param {string} name
-   * @param {boolean} [help]
+   * @param {string | boolean} [help]
    * @param {Array} [deps]
    * @param {function} [fn]
    * @param {object} [taskOptions]
@@ -27,17 +26,12 @@ module.exports = function (gulp, options) {
   gulp.task = function (name, help, deps, fn, taskOptions) {
     var task;
 
-    // previously ignored. Unignore and re-run logic below
-    _.remove(ignoredTasks, function (taskName) {
-      return name === taskName;
-    });
-
     /* jshint noempty: false */
     if (name && (help === null || help === undefined)) {
       // just a name. do nothing.
     } else if (help === false) {
       // .task('test', false, ...)
-      ignoredTasks.push(name);
+      //ignoredTasks.push(name);
       if (typeof deps === 'function') {
         // .task('test', false, function(){}, {})
         taskOptions = fn;
@@ -91,19 +85,13 @@ module.exports = function (gulp, options) {
       gulp.task(alias, false, [ name ], gutil.noop);
     });
 
-    if (task && help !== false) {
-      if (taskOptions.aliases.length > 0) {
-        help = (help ? help + ' ' : '') + 'Aliases: ' + taskOptions.aliases.join(', ');
-      }
-      task.help = help;
-    }
-
+    attachHelp(task, help, taskOptions.aliases);
   };
 
   gulp.task('help', options.description, function () {
     var tasks = Object.keys(gulp.tasks).sort();
     var margin = tasks.reduce(function (m, taskName) {
-      if (_.contains(ignoredTasks, taskName) || (m > taskName.length)) {
+      if (!gulp.tasks[taskName].help || (m > taskName.length)) {
         return m;
       } else {
         return taskName.length;
@@ -116,8 +104,8 @@ module.exports = function (gulp, options) {
     console.log('');
     console.log(gutil.colors.underline('Available tasks'));
     tasks.forEach(function (name) {
-      if (!_.contains(ignoredTasks, name)) {
-        var helpText = gulp.tasks[name].help || '';
+      if (gulp.tasks[name].help) {
+        var helpText = gulp.tasks[name].help.message || '';
         var args = [' ', gutil.colors.cyan(name)];
 
         args.push(new Array(margin - name.length + 1).join(" "));
@@ -134,3 +122,18 @@ module.exports = function (gulp, options) {
 
   gulp.task('default', false, ['help']);
 };
+
+function attachHelp(task, msg, aliases) {
+  if (task && msg !== false) {
+    msg = (typeof msg === 'string') ? msg : '';
+    if (aliases && aliases.length > 0) {
+      if (msg.length > 0) {
+        msg += ' ';
+      }
+      msg += 'Aliases: ' + aliases.join(', ');
+    }
+    task.help = {
+      message: msg
+    };
+  }
+}
