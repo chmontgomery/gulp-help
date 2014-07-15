@@ -50,17 +50,38 @@ describe('help', function () {
       should(originalTaskFn.calledTwice).ok;
     });
 
-    it('with no help text and no deps', function () {
+    it('with nothing', function () {
+      gulp.task('oldStyle');
+      should(originalTaskFn.calledThrice).ok;
+      should(originalTaskFn.calledWith('oldStyle')).ok;
+      should(gulp.tasks.oldStyle.help).eql(undefined);
+    });
+
+    it('with nothing null', function () {
+      gulp.task('oldStyle', null);
+      should(originalTaskFn.calledThrice).ok;
+      should(originalTaskFn.calledWith('oldStyle')).ok;
+      should(gulp.tasks.oldStyle.help).eql(undefined);
+    });
+
+    it('with func', function () {
       gulp.task('oldStyle', gutil.noop);
       should(originalTaskFn.calledThrice).ok;
       should(originalTaskFn.calledWith('oldStyle', gutil.noop)).ok;
       should(gulp.tasks.oldStyle.help).eql(undefined);
     });
 
-    it('with no help text and deps', function () {
+    it('with deps and func', function () {
       gulp.task('oldStyle', ['dep'], gutil.noop);
       should(originalTaskFn.calledThrice).ok;
       should(originalTaskFn.calledWith('oldStyle', ['dep'], gutil.noop)).ok;
+      should(gulp.tasks.oldStyle.help).eql(undefined);
+    });
+
+    it('with deps and no func', function () {
+      gulp.task('oldStyle', ['dep']);
+      should(originalTaskFn.calledThrice).ok;
+      should(originalTaskFn.calledWith('oldStyle', ['dep'])).ok;
       should(gulp.tasks.oldStyle.help).eql(undefined);
     });
 
@@ -75,30 +96,37 @@ describe('help', function () {
       should(originalTaskFn.calledTwice).ok;
     });
 
+    it('with help text and no nothing', function () {
+      gulp.task('newStyle', 'help text here');
+      should(originalTaskFn.callCount).eql(3);
+      should(originalTaskFn.calledWith('newStyle')).ok;
+      should(gulp.tasks.newStyle.help).eql('help text here');
+    });
+
     it('with help text and no deps', function () {
       gulp.task('newStyle', 'help text here', gutil.noop);
-      should(originalTaskFn.calledThrice).ok;
+      should(originalTaskFn.callCount).eql(3);
       should(originalTaskFn.calledWith('newStyle', gutil.noop)).ok;
       should(gulp.tasks.newStyle.help).eql('help text here');
     });
 
     it('with help text and deps', function () {
       gulp.task('newStyle', 'help text here', ['dep'], gutil.noop);
-      should(originalTaskFn.calledThrice).ok;
+      should(originalTaskFn.callCount).eql(3);
       should(originalTaskFn.calledWith('newStyle', ['dep'], gutil.noop)).ok;
       should(gulp.tasks.newStyle.help).eql('help text here');
     });
 
     it('with disabled help text and no deps', function () {
       gulp.task('newStyle', false, gutil.noop);
-      should(originalTaskFn.calledThrice).ok;
+      should(originalTaskFn.callCount).eql(3);
       should(originalTaskFn.calledWith('newStyle', gutil.noop)).ok;
       should(gulp.tasks.newStyle.help).eql(undefined);
     });
 
     it('with disabled help text and deps', function () {
       gulp.task('newStyle', false, ['dep'], gutil.noop);
-      should(originalTaskFn.calledThrice).ok;
+      should(originalTaskFn.callCount).eql(3);
       should(originalTaskFn.calledWith('newStyle', ['dep'], gutil.noop)).ok;
       should(gulp.tasks.newStyle.help).eql(undefined);
     });
@@ -149,7 +177,7 @@ describe('help', function () {
     });
   });
 
-  describe('should throw error on error cases', function () {
+  describe('should throw error', function () {
 
     function shouldThrowGulpPluginError(func) {
       (function () {
@@ -165,32 +193,14 @@ describe('help', function () {
     });
 
     it('with no args given', function () {
-      shouldThrowGulpPluginError(function() {
+      shouldThrowGulpPluginError(function () {
         gulp.task();
       });
     });
 
-    it('with null as second arg', function () {
-      shouldThrowGulpPluginError(function() {
-        gulp.task('aTask', null);
-      });
-    });
-
-    it('with null deps', function () {
-      shouldThrowGulpPluginError(function() {
-        gulp.task('aTask', null, null, gutil.noop);
-      });
-    });
-
-    it('with null fn', function () {
-      shouldThrowGulpPluginError(function() {
-        gulp.task('aTask', ['dep'], null);
-      });
-    });
-
-    it('with help text but null fn', function () {
-      shouldThrowGulpPluginError(function() {
-        gulp.task('aTask', 'help text', null);
+    it('null name', function () {
+      shouldThrowGulpPluginError(function () {
+        gulp.task(null);
       });
     });
 

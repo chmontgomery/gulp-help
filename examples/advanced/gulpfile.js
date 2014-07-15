@@ -41,6 +41,8 @@ gulp.task('ci-watch', false, function () {
 
 gulp.task('watch', 'Watch files and run ci validation on change', ['ci-watch']);
 
+gulp.task('combo', ['ci']);
+
 // --------------------------------------------------------------------------------------
 // helper functions
 // --------------------------------------------------------------------------------------

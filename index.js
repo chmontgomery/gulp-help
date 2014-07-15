@@ -27,15 +27,15 @@ module.exports = function (gulp, options) {
   gulp.task = function (name, help, deps, fn, taskOptions) {
     var task;
 
-    if (_.contains(ignoredTasks, name)) {
-      // previously ignored. Unignore and re-run logic below
-      _.remove(ignoredTasks, function (taskName) {
-        return name === taskName;
-      });
-    }
+    // previously ignored. Unignore and re-run logic below
+    _.remove(ignoredTasks, function (taskName) {
+      return name === taskName;
+    });
 
     /* jshint noempty: false */
-    if (help === false) {
+    if (name && (help === null || help === undefined)) {
+      // just a name. do nothing.
+    } else if (help === false) {
       // .task('test', false, ...)
       ignoredTasks.push(name);
       if (typeof deps === 'function') {
@@ -53,12 +53,15 @@ module.exports = function (gulp, options) {
       fn = undefined;
       deps = help;
       help = undefined;
-    } else if (Array.isArray(help) && typeof deps === 'function') {
-      // .task('test', ['dep'], function(){}, {})
+    } else if (Array.isArray(help)) {
+      // .task('test', ['dep'], ...)
       taskOptions = fn;
       fn = deps;
       deps = help;
       help = undefined;
+    } else if (name && !deps) {
+      // .task('test', '...')
+      // help text with no func and no deps
     } else if (typeof deps === 'function') {
       // .task('test', '...', function, {})
       taskOptions = fn;
