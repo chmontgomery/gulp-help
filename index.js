@@ -105,7 +105,12 @@ module.exports = function (gulp, options) {
     console.log('  gulp [task]');
     console.log('');
     console.log(gutil.colors.underline('Available tasks'));
-    tasks.forEach(function (name) {
+
+    // ensure help is always first
+
+    ['help'].concat(tasks.filter(function (task) {
+      return task !== 'help';
+    })).forEach(function (name) {
       if (gulp.tasks[name].help) {
         var helpText = gulp.tasks[name].help.message || '';
         var args = [' ', gutil.colors.cyan(name)];
