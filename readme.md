@@ -109,6 +109,34 @@ Available tasks
 [gulp] Finished 'help' after 928 μs
 ```
 
+## Options
+
+You can optionally pass options to your targets by supplying an object with an options object, e.g.
+
+```js
+gulp.task('version', 'prints the version.', [], function() {
+  // ...
+}, {
+  options: { 'env=prod': 'description of env, perhaps with available values', 'key=val': 'description of key & val'}
+});
+```
+which results in
+
+```bash
+[gulp] Starting 'help'...
+
+Usage
+  gulp [task]
+
+Available tasks
+  help          Display this help text.
+  version       prints the version.
+    --key=val   description of key, perhaps with available values
+    --key       description of key option, without value
+
+[gulp] Finished 'help' after 928 μs
+```
+
 ## Override default help message
 
 ```js

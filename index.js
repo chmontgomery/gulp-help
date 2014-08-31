@@ -87,18 +87,33 @@ module.exports = function (gulp, options) {
       gulp.task(alias, false, [ name ], gutil.noop);
     });
 
-    attachHelp(task, help, taskOptions.aliases);
+    attachHelp(task, help, taskOptions);
   };
 
   gulp.task('help', options.description, function () {
     var tasks = Object.keys(gulp.tasks).sort();
+    var optionsSetByMargin = 0;
     var margin = tasks.reduce(function (m, taskName) {
-      if (!gulp.tasks[taskName].help || (m > taskName.length)) {
+      var optionsMargin = 0, opts;
+      if(gulp.tasks[taskName].help && gulp.tasks[taskName].help.options) {
+        opts = Object.keys(gulp.tasks[taskName].help.options).sort();
+        optionsMargin = opts.reduce(function (m, opt) {
+          return m > opt.length ? m : opt.length;
+        }, 0)
+      }
+
+      if (!gulp.tasks[taskName].help || (m > taskName.length && m > optionsMargin)) {
         return m;
+      } else if (optionsMargin > taskName.length) {
+        optionsSetByMargin = optionsMargin;
+        return optionsMargin;
       } else {
         return taskName.length;
       }
     }, 0);
+
+    // set options buffer if the margin was ultimately set by an option, not a task name
+    var optionsBuffer = optionsSetByMargin === margin ? '  --' : '';
 
     console.log('');
     console.log(gutil.colors.underline('Usage'));
@@ -110,8 +125,17 @@ module.exports = function (gulp, options) {
         var helpText = gulp.tasks[name].help.message || '';
         var args = [' ', gutil.colors.cyan(name)];
 
-        args.push(new Array(margin - name.length + 1).join(" "));
+        args.push(new Array(margin - name.length + 1 + optionsBuffer.length).join(" "));
         args.push(helpText);
+
+        var options = Object.keys(gulp.tasks[name].help.options).sort();
+        options.forEach(function (option) {
+          var optText = gulp.tasks[name].help.options[option];
+          args.push('\n ' + optionsBuffer + gutil.colors.cyan(option) + ' ');
+
+          args.push(new Array(margin - option.length + 1).join(" "));
+          args.push(optText);
+        });
 
         console.log.apply(console, args);
       }
