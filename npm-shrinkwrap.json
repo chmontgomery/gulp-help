@@ -1,6 +1,6 @@
 {
   "name": "gulp-help",
-  "version": "0.1.11",
+  "version": "1.0.0",
   "dependencies": {
     "gulp-util": {
       "version": "3.0.1",
