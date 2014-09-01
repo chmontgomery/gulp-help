@@ -8,7 +8,8 @@
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "gulp": "3.8.5"
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.8.7"
   }
 }
