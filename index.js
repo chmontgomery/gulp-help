@@ -3,6 +3,7 @@
 var gutil = require('gulp-util'),
   _ = require('lodash'),
   attachHelp = require('./lib/attach-help.js'),
+  calculateMargin = require('./lib/calculate-margin.js'),
   DEFAULT_OPTIONS = {
     aliases: [],
     description: 'Display this help text.',
@@ -87,18 +88,16 @@ module.exports = function (gulp, options) {
       gulp.task(alias, false, [ name ], gutil.noop);
     });
 
-    attachHelp(task, help, taskOptions.aliases);
+    attachHelp(task, help, taskOptions);
   };
 
   gulp.task('help', options.description, function () {
     var tasks = Object.keys(gulp.tasks).sort();
-    var margin = tasks.reduce(function (m, taskName) {
-      if (!gulp.tasks[taskName].help || (m > taskName.length)) {
-        return m;
-      } else {
-        return taskName.length;
-      }
-    }, 0);
+    var getMarginData = calculateMargin(gulp.tasks, tasks);
+    var margin = getMarginData.margin;
+
+    // set options buffer if the tasks array has options
+    var optionsBuffer = getMarginData.hasOptions ? '  --' : '';
 
     console.log('');
     console.log(gutil.colors.underline('Usage'));
@@ -110,8 +109,17 @@ module.exports = function (gulp, options) {
         var helpText = gulp.tasks[name].help.message || '';
         var args = [' ', gutil.colors.cyan(name)];
 
-        args.push(new Array(margin - name.length + 1).join(" "));
+        args.push(new Array(margin - name.length + 1 + optionsBuffer.length).join(" "));
         args.push(helpText);
+
+        var options = Object.keys(gulp.tasks[name].help.options).sort();
+        options.forEach(function (option) {
+          var optText = gulp.tasks[name].help.options[option];
+          args.push('\n ' + optionsBuffer + gutil.colors.cyan(option) + ' ');
+
+          args.push(new Array(margin - option.length + 1).join(" "));
+          args.push(optText);
+        });
 
         console.log.apply(console, args);
       }
