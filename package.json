@@ -11,8 +11,7 @@
     "help",
     "tasks",
     "list",
-    "gulpfriendly",
-    "gulpplugin"
+    "gulpfriendly"
   ],
   "repository": {
     "type": "git",
