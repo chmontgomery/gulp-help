@@ -114,10 +114,14 @@ Available tasks
 You can optionally pass options to your targets by supplying an object with an options object, e.g.
 
 ```js
-gulp.task('version', 'prints the version.', [], function() {
+gulp.task('version', 'prints the version.', [], function () {
   // ...
 }, {
-  options: { 'env=prod': 'description of env, perhaps with available values', 'key=val': 'description of key & val'}
+  options: {
+    'env=prod': 'description of env, perhaps with available values',
+    'key=val': 'description of key & val',
+    'key': 'description of key'
+  }
 });
 ```
 which results in
@@ -131,8 +135,9 @@ Usage
 Available tasks
   help          Display this help text.
   version       prints the version.
-    --key=val   description of key, perhaps with available values
-    --key       description of key option, without value
+    --env=prod  description of env, perhaps with available values
+    --key=val   description of key & val
+    --key       description of key
 
 [gulp] Finished 'help' after 928 μs
 ```
