@@ -4,7 +4,7 @@
   "dependencies": {
     "gulp-util": {
       "version": "3.0.1",
-      "from": "gulp-util@",
+      "from": "gulp-util@3.0.1",
       "dependencies": {
         "chalk": {
           "version": "0.5.1",
@@ -207,7 +207,7 @@
           }
         },
         "vinyl": {
-          "version": "0.4.2",
+          "version": "0.4.3",
           "from": "vinyl@^0.4.0",
           "dependencies": {
             "clone-stats": {
@@ -220,7 +220,7 @@
     },
     "lodash": {
       "version": "2.4.1",
-      "from": "lodash@"
+      "from": "lodash@2.4.1"
     }
   }
 }

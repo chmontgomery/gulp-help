@@ -92,19 +92,18 @@ module.exports = function (gulp, options) {
   };
 
   gulp.task('help', options.description, function () {
-    var tasks = Object.keys(gulp.tasks).sort();
-    var getMarginData = calculateMargin(gulp.tasks, tasks);
-    var margin = getMarginData.margin;
+    var marginData = calculateMargin(gulp.tasks);
+    var margin = marginData.margin;
 
     // set options buffer if the tasks array has options
-    var optionsBuffer = getMarginData.hasOptions ? '  --' : '';
+    var optionsBuffer = marginData.hasOptions ? '  --' : '';
 
     console.log('');
     console.log(gutil.colors.underline('Usage'));
     console.log('  gulp [task]');
     console.log('');
     console.log(gutil.colors.underline('Available tasks'));
-    tasks.forEach(function (name) {
+    Object.keys(gulp.tasks).sort().forEach(function (name) {
       if (gulp.tasks[name].help) {
         var helpText = gulp.tasks[name].help.message || '';
         var args = [' ', gutil.colors.cyan(name)];

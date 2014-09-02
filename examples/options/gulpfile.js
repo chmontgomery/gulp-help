@@ -36,11 +36,12 @@ gulp.task('combo', ['ci']);
 
 gulp.task('a-super-long-task-name', ['build']);
 gulp.task('a-super-long-task-name-that-is-ignored-and-not-counted-for-margins', false, ['build']);
-// gulp.task('a-super-long-task-name', 'testing', ['build'], function () {}, {
-//   options: {
-//     'a-super-long-options-name-to-test-margin': 'cool description bro, now make me a sammich'
-//   }
-// });
+gulp.task('a-super-long-task-name-2', 'testing', ['build'], function () {
+}, {
+  options: {
+    'a-super-long-options-name-to-test-margin': 'cool description bro, now make me a sammich'
+  }
+});
 
 gulp.task('version', 'prints the version.', [], function () {
   // ...

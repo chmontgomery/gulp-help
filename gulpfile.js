@@ -15,11 +15,12 @@ function errorLogger(err) {
 
 function lint() {
   return gulp.src([
-    './*.js'
+    './*.js',
+    './lib/**/*.js'
   ])
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(stylish))
-    .pipe(jshint.reporter('fail'))
+    .pipe(jshint.reporter('fail', { verbose: true }))
     .on('error', errorLogger);
 }
 
