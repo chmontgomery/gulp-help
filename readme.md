@@ -13,8 +13,7 @@ Before defining any tasks, add `gulp help` to your gulp instance
 
 ```js
 // gulpfile.js
-var gulp = require('gulp');
-require('gulp-help')(gulp);
+var gulp = require('gulp-help')(require('gulp'));
 ```
 
 Next, define help text for each custom task
