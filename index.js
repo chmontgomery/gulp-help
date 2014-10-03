@@ -89,6 +89,8 @@ module.exports = function (gulp, options) {
     });
 
     attachHelp(task, help, taskOptions);
+
+    return gulp;
   };
 
   gulp.task('help', options.description, function () {
@@ -130,4 +132,6 @@ module.exports = function (gulp, options) {
   }, options);
 
   gulp.task('default', false, ['help']);
+
+  return gulp;
 };
