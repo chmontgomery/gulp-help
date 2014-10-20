@@ -106,16 +106,17 @@ module.exports = function (gulp, options) {
     console.log('');
     console.log(gutil.colors.underline('Available tasks'));
     Object.keys(gulp.tasks).sort().forEach(function (name) {
-      if (gulp.tasks[name].help) {
-        var helpText = gulp.tasks[name].help.message || '';
+      if (gulp.tasks[name].help || process.argv.indexOf('--all') !== -1) {
+        var help = gulp.tasks[name].help || { message: '', options: {} };
+        var helpText = help.message || '';
         var args = [' ', gutil.colors.cyan(name)];
 
         args.push(new Array(margin - name.length + 1 + optionsBuffer.length).join(" "));
         args.push(helpText);
 
-        var options = Object.keys(gulp.tasks[name].help.options).sort();
+        var options = Object.keys(help.options).sort();
         options.forEach(function (option) {
-          var optText = gulp.tasks[name].help.options[option];
+          var optText = help.options[option];
           args.push('\n ' + optionsBuffer + gutil.colors.cyan(option) + ' ');
 
           args.push(new Array(margin - option.length + 1).join(" "));

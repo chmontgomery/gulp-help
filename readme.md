@@ -81,6 +81,8 @@ gulp.task('task-hidden-from-help', false, function () {
 });
 ```
 
+However, if the `--all` flag is provided, even these tasks will be shown. (i.e. `gulp help --all`)
+
 ## Aliases
 
 You can optionally add aliases to your targets by supplying an object with an aliases array, e.g.
