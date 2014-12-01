@@ -5,8 +5,7 @@ var gulp = require('gulp'),
   stylish = require('jshint-stylish'),
   gutil = require('gulp-util'),
   mocha = require('gulp-mocha'),
-  nicePackage = require('gulp-nice-package'),
-  shrinkwrap = require('gulp-shrinkwrap');
+  nicePackage = require('gulp-nice-package');
 
 function errorLogger(err) {
   gutil.beep();
@@ -57,12 +56,6 @@ gulp.task('nice-package', function () {
     .pipe(nicePackage({
       recommendations: false
     }));
-});
-
-gulp.task('shrinkwrap', function () {
-  return gulp.src('package.json')
-    .pipe(shrinkwrap())
-    .pipe(gulp.dest('./'));
 });
 
 gulp.task('default', ['watch']);
