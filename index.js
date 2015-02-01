@@ -79,7 +79,7 @@ module.exports = function (gulp, options) {
 
     task = gulp.tasks[name];
 
-    taskOptions = _.extend({
+    taskOptions = _.assign({
       aliases: []
     }, taskOptions);
 
