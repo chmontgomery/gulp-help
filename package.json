@@ -49,6 +49,10 @@
     {
       "name": "Rui Marinho",
       "url": "https://github.com/ruimarinho"
+    },
+    {
+      "name": "Jacek Tomaszewski",
+      "url": "https://github.com/jtomaszewski"
     }
   ],
   "engines": {
@@ -60,12 +64,12 @@
     "lodash": "^3.1.0"
   },
   "devDependencies": {
-    "gulp": "3.8.10",
-    "gulp-jshint": "1.9.2",
-    "gulp-mocha": "2.0.0",
-    "gulp-nice-package": "0.0.2",
-    "jshint-stylish": "1.0.0",
-    "should": "4.6.5",
-    "sinon": "1.12.2"
+    "gulp": "^3.8.10",
+    "gulp-jshint": "^1.9.2",
+    "gulp-mocha": "^2.0.0",
+    "gulp-nice-package": "^0.0.2",
+    "jshint-stylish": "^1.0.0",
+    "should": "^4.6.5",
+    "sinon": "^1.12.2"
   }
 }
