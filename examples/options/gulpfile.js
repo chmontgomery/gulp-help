@@ -51,3 +51,9 @@ gulp.task('version', 'prints the version.', [], function () {
     'key=val': 'description of key & val'
   }
 });
+
+gulp.task('i-will-overwrite-the-message', 'ERROR: message not overwritten');
+gulp.task('i-will-overwrite-the-message', 'success! message overwritten');
+
+gulp.task('THIS-TASK-SHOULD-NOT-BE-DISPLAYED', function () {}); // perhaps comes from separate library
+gulp.task('THIS-TASK-SHOULD-NOT-BE-DISPLAYED', false, function () {});

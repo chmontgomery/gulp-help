@@ -10,6 +10,6 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "gulp": "^3.8.7"
+    "gulp": "^3.8.10"
   }
 }
