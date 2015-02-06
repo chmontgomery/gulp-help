@@ -1,6 +1,6 @@
 {
   "name": "gulp-help",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Adds a default help task to gulp and provides the ability to add custom help messages to your gulp tasks",
   "main": "index.js",
   "scripts": {
