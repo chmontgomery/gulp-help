@@ -309,6 +309,14 @@ describe('help', function () {
       should(gulp.tasks.newStyle.help.message).eql('Aliases: new-style, nstyle');
     });
 
+    it('should replace help message of a task being rewritten', function () {
+      gulp.task('newStyle', gutil.noop);
+      gulp.task('newStyle', false, gutil.noop);
+      should(originalTaskFn.callCount).eql(4);
+      should(originalTaskFn.calledWith('newStyle', gutil.noop)).ok;
+      should(gulp.tasks.newStyle.help).eql(undefined);
+    });
+
   });
 
   describe('should throw error', function () {
