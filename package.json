@@ -60,16 +60,16 @@
   },
   "license": "MIT",
   "dependencies": {
-    "gulp-util": "^3.0.3",
-    "lodash": "^3.1.0"
+    "gulp-util": "^3.0.4",
+    "lodash": "^3.5.0"
   },
   "devDependencies": {
-    "gulp": "^3.8.10",
+    "gulp": "^3.8.11",
     "gulp-jshint": "^1.9.2",
     "gulp-mocha": "^2.0.0",
     "gulp-nice-package": "^0.0.2",
-    "jshint-stylish": "^1.0.0",
-    "should": "^4.6.5",
-    "sinon": "^1.12.2"
+    "jshint-stylish": "^1.0.1",
+    "should": "^5.2.0",
+    "sinon": "^1.14.0"
   }
 }
