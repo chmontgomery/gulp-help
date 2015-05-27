@@ -124,9 +124,7 @@ module.exports = function (gulp, options) {
         });
 
         if(help.depsMessage !== '') {
-          args.push('\n');
-          args.push(new Array(margin + 3 + optionsBuffer.length).join(" "));
-          args.push(gutil.colors.blue(help.depsMessage));
+          args.push(gutil.colors.cyan(help.depsMessage));
         }
 
         console.log.apply(console, args);
