@@ -111,7 +111,8 @@ module.exports = function (gulp, options) {
         var helpText = help.message || '';
         var args = [' ', gutil.colors.cyan(name)];
 
-        args.push(new Array(margin - name.length + 1 + optionsBuffer.length).join(" "));
+        var indent = new Array(margin - name.length + 1 + optionsBuffer.length).join(" ");
+        args.push(indent);
         args.push(helpText);
 
         var options = Object.keys(help.options).sort();
@@ -122,6 +123,12 @@ module.exports = function (gulp, options) {
           args.push(new Array(margin - option.length + 1).join(" "));
           args.push(optText);
         });
+
+        if(help.depsMessage !== '') {
+          args.push('\n');
+          args.push(new Array(margin + 3 + optionsBuffer.length).join(" "));
+          args.push(gutil.colors.blue(help.depsMessage));
+        }
 
         console.log.apply(console, args);
       }
