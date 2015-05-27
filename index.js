@@ -111,8 +111,7 @@ module.exports = function (gulp, options) {
         var helpText = help.message || '';
         var args = [' ', gutil.colors.cyan(name)];
 
-        var indent = new Array(margin - name.length + 1 + optionsBuffer.length).join(" ");
-        args.push(indent);
+        args.push(new Array(margin - name.length + 1 + optionsBuffer.length).join(" "));
         args.push(helpText);
 
         var options = Object.keys(help.options).sort();
