@@ -132,7 +132,7 @@ module.exports = function (gulp, options) {
     }
   }, options);
 
-  gulp.task('default', false, ['help']);
+  if(gulp.tasks['default'] === undefined) gulp.task('default', false, ['help']);
 
   return gulp;
 };
