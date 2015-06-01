@@ -88,7 +88,7 @@ module.exports = function (gulp, options) {
       gulp.task(alias, false, [ name ], gutil.noop);
     });
 
-    attachHelp(task, help, taskOptions);
+    attachHelp(task, help, deps, taskOptions);
 
     return gulp;
   };
