@@ -57,3 +57,5 @@ gulp.task('i-will-overwrite-the-message', 'success! message overwritten');
 
 gulp.task('THIS-TASK-SHOULD-NOT-BE-DISPLAYED', function () {}); // perhaps comes from separate library
 gulp.task('THIS-TASK-SHOULD-NOT-BE-DISPLAYED', false, function () {});
+
+gulp.task('empty-task', function () {});

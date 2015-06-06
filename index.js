@@ -116,7 +116,11 @@ module.exports = function (gulp, options) {
           args.push(help.message);
         }
 
-        if (help.depsMessage !== '') {
+        if (help.aliases) {
+          args.push(help.aliases);
+        }
+
+        if (help.depsMessage) {
           args.push(gutil.colors.cyan(help.depsMessage));
         }
 

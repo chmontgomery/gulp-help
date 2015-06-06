@@ -36,7 +36,8 @@ describe('help', function () {
     gulp = sinon.stub({task: gutil.noop, tasks: {help: {}}});
     originalTaskFn = gulp.task;
     gulpHelp(gulp, {aliases: ['h', '?']});
-    should(gulp.tasks.help.help.message).eql('Display this help text. Aliases: h, ?');
+    should(gulp.tasks.help.help.message).eql('Display this help text.');
+    should(gulp.tasks.help.help.aliases).eql('Aliases: h, ?');
     should(originalTaskFn.calledWith('h', ['help'])).ok;
     should(originalTaskFn.calledWith('?', ['help'])).ok;
   });
@@ -180,7 +181,8 @@ describe('help', function () {
       should(originalTaskFn.calledWith('new-style', ['newStyle'], gutil.noop)).ok;
       should(originalTaskFn.calledWith('nstyle', ['newStyle'], gutil.noop)).ok;
       should(gulp.tasks.newStyle.help).ok;
-      should(gulp.tasks.newStyle.help.message).eql('description. Aliases: new-style, nstyle');
+      should(gulp.tasks.newStyle.help.message).eql('description.');
+      should(gulp.tasks.newStyle.help.aliases).eql('Aliases: new-style, nstyle');
       should(gulp.tasks.newStyle.help.depsMessage).eql('[dep]');
     });
 
@@ -191,7 +193,8 @@ describe('help', function () {
       should(originalTaskFn.calledWith('new-style', ['newStyle'], gutil.noop)).ok;
       should(originalTaskFn.calledWith('nstyle', ['newStyle'], gutil.noop)).ok;
       should(gulp.tasks.newStyle.help).ok;
-      should(gulp.tasks.newStyle.help.message).eql('Aliases: new-style, nstyle');
+      should(gulp.tasks.newStyle.help.message).eql('');
+      should(gulp.tasks.newStyle.help.aliases).eql('Aliases: new-style, nstyle');
       should(gulp.tasks.newStyle.help.depsMessage).eql('[dep]');
     });
 
@@ -202,7 +205,8 @@ describe('help', function () {
       should(originalTaskFn.calledWith('new-style', ['newStyle'], gutil.noop)).ok;
       should(originalTaskFn.calledWith('nstyle', ['newStyle'], gutil.noop)).ok;
       should(gulp.tasks.newStyle.help).ok;
-      should(gulp.tasks.newStyle.help.message).eql('description. Aliases: new-style, nstyle');
+      should(gulp.tasks.newStyle.help.message).eql('description.');
+      should(gulp.tasks.newStyle.help.aliases).eql('Aliases: new-style, nstyle');
       should(gulp.tasks.newStyle.help.depsMessage).eql('');
     });
 
@@ -222,7 +226,8 @@ describe('help', function () {
       should(originalTaskFn.calledWith('new-style', ['newStyle'], gutil.noop)).ok;
       should(originalTaskFn.calledWith('nstyle', ['newStyle'], gutil.noop)).ok;
       should(gulp.tasks.newStyle.help).ok;
-      should(gulp.tasks.newStyle.help.message).eql('Aliases: new-style, nstyle');
+      should(gulp.tasks.newStyle.help.message).eql('');
+      should(gulp.tasks.newStyle.help.aliases).eql('Aliases: new-style, nstyle');
       should(gulp.tasks.newStyle.help.depsMessage).eql('');
     });
 
@@ -284,7 +289,8 @@ describe('help', function () {
       should(originalTaskFn.calledWith('nstyle', ['newStyle'], gutil.noop)).ok;
       should(gulp.tasks.newStyle.help).ok;
       should(gulp.tasks.newStyle.help.options).eql({key: 'val', key2: 'val2'});
-      should(gulp.tasks.newStyle.help.message).eql('description. Aliases: new-style, nstyle');
+      should(gulp.tasks.newStyle.help.message).eql('description.');
+      should(gulp.tasks.newStyle.help.aliases).eql('Aliases: new-style, nstyle');
       should(gulp.tasks.newStyle.help.depsMessage).eql('[dep]');
     });
 
@@ -299,7 +305,8 @@ describe('help', function () {
       should(originalTaskFn.calledWith('nstyle', ['newStyle'], gutil.noop)).ok;
       should(gulp.tasks.newStyle.help).ok;
       should(gulp.tasks.newStyle.help.options).eql({key: 'val', key2: 'val2'});
-      should(gulp.tasks.newStyle.help.message).eql('Aliases: new-style, nstyle');
+      should(gulp.tasks.newStyle.help.message).eql('');
+      should(gulp.tasks.newStyle.help.aliases).eql('Aliases: new-style, nstyle');
       should(gulp.tasks.newStyle.help.depsMessage).eql('[dep]');
     });
 
@@ -314,7 +321,8 @@ describe('help', function () {
       should(originalTaskFn.calledWith('nstyle', ['newStyle'], gutil.noop)).ok;
       should(gulp.tasks.newStyle.help).ok;
       should(gulp.tasks.newStyle.help.options).eql({key: 'val', key2: 'val2'});
-      should(gulp.tasks.newStyle.help.message).eql('description. Aliases: new-style, nstyle');
+      should(gulp.tasks.newStyle.help.message).eql('description.');
+      should(gulp.tasks.newStyle.help.aliases).eql('Aliases: new-style, nstyle');
       should(gulp.tasks.newStyle.help.depsMessage).eql('');
     });
 
@@ -335,7 +343,8 @@ describe('help', function () {
       should(originalTaskFn.calledWith('nstyle', ['newStyle'], gutil.noop)).ok;
       should(gulp.tasks.newStyle.help).ok;
       should(gulp.tasks.newStyle.help.options).eql({key: 'val', key2: 'val2'});
-      should(gulp.tasks.newStyle.help.message).eql('Aliases: new-style, nstyle');
+      should(gulp.tasks.newStyle.help.message).eql('');
+      should(gulp.tasks.newStyle.help.aliases).eql('Aliases: new-style, nstyle');
       should(gulp.tasks.newStyle.help.depsMessage).eql('');
     });
 
