@@ -68,16 +68,16 @@
   },
   "license": "MIT",
   "dependencies": {
-    "gulp-util": "^3.0.4",
-    "lodash": "^3.5.0"
+    "gulp-util": "^3.0.5",
+    "lodash": "^3.9.3"
   },
   "devDependencies": {
-    "gulp": "^3.8.11",
-    "gulp-jshint": "^1.9.2",
-    "gulp-mocha": "^2.0.0",
-    "gulp-nice-package": "^0.0.2",
-    "jshint-stylish": "^1.0.1",
-    "should": "^5.2.0",
-    "sinon": "^1.14.0"
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^1.11.0",
+    "gulp-mocha": "^2.1.1",
+    "gulp-nice-package": "^1.0.0",
+    "jshint-stylish": "^2.0.0",
+    "should": "^6.0.3",
+    "sinon": "^1.14.1"
   }
 }
