@@ -1,5 +1,3 @@
-'use strict';
-
 var gutil = require('gulp-util'),
   _ = require('lodash'),
   attachHelp = require('./lib/attach-help.js'),
