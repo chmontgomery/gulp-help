@@ -88,7 +88,7 @@ module.exports = function (gulp, options) {
       gulp.task(alias, false, [name], gutil.noop);
     });
 
-    attachHelp(task, help, taskOptions);
+    attachHelp(task, help, deps, taskOptions);
 
     return gulp;
   };
@@ -122,6 +122,10 @@ module.exports = function (gulp, options) {
           args.push(new Array(margin - option.length + 1).join(" "));
           args.push(optText);
         });
+
+        if(help.depsMessage !== '') {
+          args.push(gutil.colors.cyan(help.depsMessage));
+        }
 
         console.log.apply(console, args);
       }

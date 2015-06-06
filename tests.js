@@ -317,6 +317,30 @@ describe('help', function () {
       should(gulp.tasks.newStyle.help).eql(undefined);
     });
 
+    it('with one dep', function () {
+      gulp.task('newStyle', 'help text here', ['dep'], gutil.noop);
+      should(originalTaskFn.callCount).eql(3);
+      should(originalTaskFn.calledWith('newStyle', ['dep'], gutil.noop)).ok;
+      should(gulp.tasks.newStyle.help).ok;
+      should(gulp.tasks.newStyle.help.depsMessage).eql('[dep]');
+    });
+
+    it('with two deps', function () {
+      gulp.task('newStyle', 'help text here', ['dep', 'dep-2'], gutil.noop);
+      should(originalTaskFn.callCount).eql(3);
+      should(originalTaskFn.calledWith('newStyle', ['dep', 'dep-2'], gutil.noop)).ok;
+      should(gulp.tasks.newStyle.help).ok;
+      should(gulp.tasks.newStyle.help.depsMessage).eql('[dep, dep-2]');
+    });
+
+    it('with no deps', function () {
+      gulp.task('newStyle', 'help text here', gutil.noop);
+      should(originalTaskFn.callCount).eql(3);
+      should(originalTaskFn.calledWith('newStyle', gutil.noop)).ok;
+      should(gulp.tasks.newStyle.help).ok;
+      should(gulp.tasks.newStyle.help.depsMessage).eql('');
+    });
+
   });
 
   describe('should throw error', function () {
