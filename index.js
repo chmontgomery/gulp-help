@@ -102,7 +102,7 @@ module.exports = function (gulp, options) {
 
     console.log('');
     console.log(gutil.colors.underline('Usage'));
-    console.log('  gulp [task]');
+    console.log('  gulp [TASK] [OPTIONS...]');
     console.log('');
     console.log(gutil.colors.underline('Available tasks'));
     Object.keys(gulp.tasks).sort().forEach(function (name) {
