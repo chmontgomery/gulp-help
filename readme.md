@@ -28,19 +28,7 @@ gulp.task('lint', 'Lints all server side js', function () {
 
 Now show that help via `gulp help`
 
-```bash
-$ gulp help
-[gulp] Running 'help'...
-
-Usage
-  gulp [task]
-
-Available tasks
-  help Display this help text.
-  lint Lints all server side js
-
-[gulp] Finished 'help' in 607 μs
-```
+![](screenshot.png)
 
 ## New task API
 
@@ -97,18 +85,7 @@ gulp.task('version', 'prints the version.', [], function() {
 
 which results in
 
-```bash
-[gulp] Starting 'help'...
-
-Usage
-  gulp [task]
-
-Available tasks
-  help     Display this help text.
-  version  prints the version. Aliases: v, V
-
-[gulp] Finished 'help' after 928 μs
-```
+![](screenshot-aliases.png)
 
 ## Options
 
@@ -127,26 +104,12 @@ gulp.task('version', 'prints the version.', [], function () {
 ```
 which results in
 
-```bash
-[gulp] Starting 'help'...
-
-Usage
-  gulp [task]
-
-Available tasks
-  help          Display this help text.
-  version       prints the version.
-    --env=prod  description of env, perhaps with available values
-    --key=val   description of key & val
-    --key       description of key
-
-[gulp] Finished 'help' after 928 μs
-```
+![](screenshot-options.png)
 
 ## Override default help message
 
 ```js
-require('gulp-help')(gulp, { description: 'you are looking at it.', aliases: ['h', '?'] });
+require('gulp-help')(require('gulp'), { description: 'you are looking at it.', aliases: ['h', '?'] });
 ```
 
 Then, calling
@@ -160,17 +123,7 @@ $ gulp ?
 
 will now result in
 
-```
-[gulp] Starting 'help'...
-
-Usage:
-  gulp [task]
-
-Available tasks:
-  help     you are looking at it. Aliases: h, ?
-
-[gulp] Finished 'help' after 1.05 ms
-```
+![](screenshot-override-default.png)
 
 ## Post-help callback
 
