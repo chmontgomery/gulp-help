@@ -4,7 +4,7 @@ var gulp = require('../../index.js')(require('gulp'));
 // tasks
 // --------------------------------------------------------------------------------------
 
-gulp.task('build', 'build assets', [], function () {
+gulp.task('build', 'build assets.', ['sass', 'uglify'], function () {
   console.log('building...');
 }, {
   options: {
@@ -13,6 +13,14 @@ gulp.task('build', 'build assets', [], function () {
     'qa': 'Set build type to QA'
   },
   aliases: ['b']
+});
+
+gulp.task('sass', 'Compile sass files', function () {
+  console.log('sassing...');
+});
+
+gulp.task('uglify', 'Uglify js files', function () {
+  console.log('uglifying...');
 });
 
 gulp.task('lint', 'Lints all server side js', function () {
