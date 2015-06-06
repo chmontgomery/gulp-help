@@ -1,99 +1,59 @@
-'use strict';
-
-var gulp = require('gulp'),
-  ghelp = require('../../index.js'),
-  jshint = require('gulp-jshint'),
-  stylish = require('jshint-stylish'),
-  map = require('map-stream'),
-  gutil = require('gulp-util'),
-  lintPaths = ['./*.js', './lib/*.js'];
-
-ghelp(gulp);
+var gulp = require('../../index.js')(require('gulp'));
 
 // --------------------------------------------------------------------------------------
 // tasks
 // --------------------------------------------------------------------------------------
 
-gulp.task('lint', 'Lints all server side js', function () {
-  return lint()
-    .on('end', function () {
-      lintOnEnd();
-      if (exitCode) {
-        // if lint failed we want to exit gulp with an exit code of 1 so our CI will fail properly
-        process.emit('exit');
-      }
-    });
+gulp.task('build', 'build assets', [], function () {
+  console.log('building...');
+}, {
+  options: {
+    'dev': 'Set build type to DEV',
+    'ist': 'Set build type to IST',
+    'qa': 'Set build type to QA'
+  },
+  aliases: ['b']
 });
 
-// Task just for watch so that it reports all errors but does not exit the watch process.
-// Help text is false because people shouldn't call this one directly.
-gulp.task('lint-watch', false, function () {
-  return lint()
-    .on('end', lintOnEnd);
+gulp.task('lint', 'Lints all server side js', function () {
+  console.log('linting...');
 });
 
 gulp.task('ci', 'Run all CI verification', ['lint']); // TODO support this here: {aliases: ['continuous', 'CI']}
 
 // Separate task so "watch" can easily be overridden.
 gulp.task('ci-watch', false, function () {
-  gulp.watch(lintPaths, ['lint-watch']);
+  gulp.watch('./lib/**/*.js', ['lint']);
 });
 
 gulp.task('watch', 'Watch files and run ci validation on change', ['ci-watch']);
 
 gulp.task('combo', ['ci']);
 
-gulp.task('a-super-long-task-name');
-gulp.task('a-super-long-task-name-that-is-ignored-and-not-counted-for-margins', false);
-
-gulp.task('do-things', gutil.noop, {aliases: ['things', 'the-things']});
-
-// --------------------------------------------------------------------------------------
-// helper functions
-// --------------------------------------------------------------------------------------
-
-var totalLintErrors = 0,
-  exitCode = 0;
-
-process.on('exit', function () {
-  process.nextTick(function () {
-    var msg = "gulp '" + gulp.seq + "' failed";
-    console.log(gutil.colors.red(msg));
-    process.exit(exitCode);
-  });
+gulp.task('a-super-long-task-name', ['build']);
+gulp.task('a-super-long-task-name-that-is-ignored-and-not-counted-for-margins', false, ['build']);
+gulp.task('a-super-long-task-name-2', 'testing', ['build'], function () {
+}, {
+  options: {
+    'a-super-long-options-name-to-test-margin': 'cool description bro, now make me a sammich'
+  }
 });
 
-// cleanup all variables since, if we're running 'watch', they'll stick around in memory
-function beforeEach() {
-  totalLintErrors = 0;
-  exitCode = 0;
-}
-
-function taskPassed(taskName) {
-  var msg = "gulp '" + taskName + "' passed";
-  console.log(gutil.colors.green(msg));
-}
-
-function lint() {
-  beforeEach();
-  return gulp.src(lintPaths)
-    .pipe(jshint())
-    .pipe(jshint.reporter(stylish))
-    .pipe(map(function (file, cb) {
-      if (!file.jshint.success) {
-        totalLintErrors += file.jshint.results.length;
-        exitCode = 1;
-      }
-      cb(null, file);
-    }));
-}
-
-function lintOnEnd() {
-  var errString = totalLintErrors + '';
-  if (exitCode) {
-    console.log(gutil.colors.magenta(errString), 'errors\n');
-    gutil.beep();
-  } else {
-    taskPassed('lint');
+gulp.task('version', 'prints the version.', [], function () {
+  // ...
+}, {
+  options: {
+    'env=prod': 'description of env, perhaps with available values',
+    'key=val': 'description of key & val'
   }
-}
+});
+
+gulp.task('do-things', function () {
+  console.log('did things');
+}, {aliases: ['things', 'the-things']});
+
+gulp.task('i-will-overwrite-the-message', 'ERROR: message not overwritten');
+gulp.task('i-will-overwrite-the-message', 'success! message overwritten');
+
+gulp.task('THIS-TASK-SHOULD-NOT-BE-DISPLAYED', function () {}); // perhaps comes from separate library
+gulp.task('THIS-TASK-SHOULD-NOT-BE-DISPLAYED', false, function () {});

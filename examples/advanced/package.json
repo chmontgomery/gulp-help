@@ -3,16 +3,10 @@
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "gulp": "^3.8.10",
-    "gulp-jshint": "^1.9.2",
-    "gulp-util": "^3.0.3",
-    "map-stream": "^0.0.5"
+    "gulp": "3.9.0"
   }
 }
