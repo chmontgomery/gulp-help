@@ -137,6 +137,14 @@ require('gulp-help')(gulp, {
 });
 ```
 
+## Hide task dependencies
+
+By default, the dependencies of a task will be listed behind its help message. To hide them:
+
+```js
+require('gulp-help')(require('gulp'), {hideDepsMessage:true});
+```
+
 ## License
 
 [MIT](http://opensource.org/licenses/MIT) © [Chris Montgomery](http://www.chrismontgomery.info/)

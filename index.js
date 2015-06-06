@@ -7,7 +7,8 @@ var gutil = require('gulp-util'),
   DEFAULT_OPTIONS = {
     aliases: [],
     description: 'Display this help text.',
-    afterPrintCallback: gutil.noop
+    afterPrintCallback: gutil.noop,
+    hideDepsMessage: false
   };
 
 module.exports = function (gulp, options) {
@@ -96,6 +97,7 @@ module.exports = function (gulp, options) {
   gulp.task('help', options.description, function () {
     var marginData = calculateMargin(gulp.tasks);
     var margin = marginData.margin;
+    var hideDepsMessage = options.hideDepsMessage;
 
     // set options buffer if the tasks array has options
     var optionsBuffer = marginData.hasOptions ? '  --' : '';
@@ -120,7 +122,7 @@ module.exports = function (gulp, options) {
           args.push(help.aliases);
         }
 
-        if (help.depsMessage) {
+        if (help.depsMessage && !hideDepsMessage) {
           args.push(gutil.colors.cyan(help.depsMessage));
         }
 
