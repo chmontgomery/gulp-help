@@ -1,0 +1,14 @@
+/node_modules/
+/examples/
+.travis.yml
+readme.md
+test.js
+.idea
+.DS_Store
+*.log
+*.orig
+.jshintrc
+*.png
+.editorconfig
+.gitattributes
+.npmignore
