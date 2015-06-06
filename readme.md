@@ -147,7 +147,7 @@ require('gulp-help')(require('gulp'), {hideDepsMessage:true});
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT) © [Chris Montgomery](http://www.chrismontgomery.info/)
+MIT © [Chris Montgomery](http://www.chrismontgomery.info/)
 
 [npm-url]: https://npmjs.org/package/gulp-help
 [npm-image]: http://img.shields.io/npm/v/gulp-help.svg
