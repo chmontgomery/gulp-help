@@ -32,7 +32,7 @@ gulp.task('lint-watch', false, function () {
     .on('end', lintOnEnd);
 });
 
-gulp.task('ci', 'Run all CI verification', ['lint']);
+gulp.task('ci', 'Run all CI verification', ['lint']); // TODO support this here: {aliases: ['continuous', 'CI']}
 
 // Separate task so "watch" can easily be overridden.
 gulp.task('ci-watch', false, function () {
@@ -45,6 +45,8 @@ gulp.task('combo', ['ci']);
 
 gulp.task('a-super-long-task-name');
 gulp.task('a-super-long-task-name-that-is-ignored-and-not-counted-for-margins', false);
+
+gulp.task('do-things', gutil.noop, {aliases: ['things', 'the-things']});
 
 // --------------------------------------------------------------------------------------
 // helper functions

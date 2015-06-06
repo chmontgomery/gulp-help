@@ -16,14 +16,15 @@ gulp.task('build', 'build assets', [], function () {
     'dev': 'Set build type to DEV',
     'ist': 'Set build type to IST',
     'qa': 'Set build type to QA'
-  }
+  },
+  aliases: ['b']
 });
 
 gulp.task('lint', 'Lints all server side js', function () {
   console.log('linting...');
 });
 
-gulp.task('ci', 'Run all CI verification', ['lint']);
+gulp.task('ci', 'Run all CI verification', ['lint']); // TODO support this here: {aliases: ['continuous', 'CI']}
 
 // Separate task so "watch" can easily be overridden.
 gulp.task('ci-watch', false, function () {
@@ -51,6 +52,10 @@ gulp.task('version', 'prints the version.', [], function () {
     'key=val': 'description of key & val'
   }
 });
+
+gulp.task('do-things', function () {
+  console.log ('did things');
+}, {aliases: ['things', 'the-things']});
 
 gulp.task('i-will-overwrite-the-message', 'ERROR: message not overwritten');
 gulp.task('i-will-overwrite-the-message', 'success! message overwritten');

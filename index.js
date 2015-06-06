@@ -108,24 +108,26 @@ module.exports = function (gulp, options) {
     Object.keys(gulp.tasks).sort().forEach(function (name) {
       if (gulp.tasks[name].help || process.argv.indexOf('--all') !== -1) {
         var help = gulp.tasks[name].help || {message: '', options: {}};
-        var helpText = help.message || '';
         var args = [' ', gutil.colors.cyan(name)];
 
-        args.push(new Array(margin - name.length + 1 + optionsBuffer.length).join(" "));
-        args.push(helpText);
+        args.push(new Array(margin - name.length + 1 + optionsBuffer.length).join(' '));
+
+        if (help.message) {
+          args.push(help.message);
+        }
+
+        if (help.depsMessage !== '') {
+          args.push(gutil.colors.cyan(help.depsMessage));
+        }
 
         var options = Object.keys(help.options).sort();
         options.forEach(function (option) {
           var optText = help.options[option];
           args.push('\n ' + optionsBuffer + gutil.colors.cyan(option) + ' ');
 
-          args.push(new Array(margin - option.length + 1).join(" "));
+          args.push(new Array(margin - option.length + 1).join(' '));
           args.push(optText);
         });
-
-        if(help.depsMessage !== '') {
-          args.push(gutil.colors.cyan(help.depsMessage));
-        }
 
         console.log.apply(console, args);
       }
