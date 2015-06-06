@@ -85,7 +85,7 @@ module.exports = function (gulp, options) {
 
 
     taskOptions.aliases.forEach(function (alias) {
-      gulp.task(alias, false, [ name ], gutil.noop);
+      gulp.task(alias, false, [name], gutil.noop);
     });
 
     attachHelp(task, help, taskOptions);
@@ -107,7 +107,7 @@ module.exports = function (gulp, options) {
     console.log(gutil.colors.underline('Available tasks'));
     Object.keys(gulp.tasks).sort().forEach(function (name) {
       if (gulp.tasks[name].help || process.argv.indexOf('--all') !== -1) {
-        var help = gulp.tasks[name].help || { message: '', options: {} };
+        var help = gulp.tasks[name].help || {message: '', options: {}};
         var helpText = help.message || '';
         var args = [' ', gutil.colors.cyan(name)];
 
@@ -132,7 +132,10 @@ module.exports = function (gulp, options) {
     }
   }, options);
 
-  if(gulp.tasks['default'] === undefined) gulp.task('default', false, ['help']);
+  // do not add default task if one already exists
+  if (gulp.tasks['default'] === undefined) {
+    gulp.task('default', false, ['help']);
+  }
 
   return gulp;
 };
