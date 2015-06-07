@@ -1,11 +1,12 @@
-var gutil = require('gulp-util'),
-  _ = require('lodash'),
+var _ = require('lodash'),
+  chalk = require('chalk'),
   attachHelp = require('./lib/attach-help.js'),
   calculateMargin = require('./lib/calculate-margin.js'),
+  noop = require('./lib/noop'),
   DEFAULT_OPTIONS = {
     aliases: [],
     description: 'Display this help text.',
-    afterPrintCallback: gutil.noop,
+    afterPrintCallback: noop,
     hideDepsMessage: false
   };
 
@@ -67,7 +68,7 @@ module.exports = function (gulp, options) {
       // .task('test', '...', ['dep'], function, {})
       // nothing needs to be re-assigned
     } else {
-      throw new gutil.PluginError('gulp-help', 'Unexpected arg types. Should be in the form: `gulp.task(name[, help, deps, fn, taskOptions])`');
+      throw new Error('gulp-help: Unexpected arg types. Should be in the form: `gulp.task(name[, help, deps, fn, taskOptions])`');
     }
 
     if (!deps) {
@@ -84,7 +85,7 @@ module.exports = function (gulp, options) {
 
 
     taskOptions.aliases.forEach(function (alias) {
-      gulp.task(alias, false, [name], gutil.noop);
+      gulp.task(alias, false, [name], noop);
     });
 
     attachHelp(task, help, deps, taskOptions);
@@ -101,14 +102,14 @@ module.exports = function (gulp, options) {
     var optionsBuffer = marginData.hasOptions ? '  --' : '';
 
     console.log('');
-    console.log(gutil.colors.underline('Usage'));
+    console.log(chalk.underline('Usage'));
     console.log('  gulp [TASK] [OPTIONS...]');
     console.log('');
-    console.log(gutil.colors.underline('Available tasks'));
+    console.log(chalk.underline('Available tasks'));
     Object.keys(gulp.tasks).sort().forEach(function (name) {
       if (gulp.tasks[name].help || process.argv.indexOf('--all') !== -1) {
         var help = gulp.tasks[name].help || {message: '', options: {}};
-        var args = [' ', gutil.colors.cyan(name)];
+        var args = [' ', chalk.cyan(name)];
 
         args.push(new Array(margin - name.length + 1 + optionsBuffer.length).join(' '));
 
@@ -121,13 +122,13 @@ module.exports = function (gulp, options) {
         }
 
         if (help.depsMessage && !hideDepsMessage) {
-          args.push(gutil.colors.cyan(help.depsMessage));
+          args.push(chalk.cyan(help.depsMessage));
         }
 
         var options = Object.keys(help.options).sort();
         options.forEach(function (option) {
           var optText = help.options[option];
-          args.push('\n ' + optionsBuffer + gutil.colors.cyan(option) + ' ');
+          args.push('\n ' + optionsBuffer + chalk.cyan(option) + ' ');
 
           args.push(new Array(margin - option.length + 1).join(' '));
           args.push(optText);
