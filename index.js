@@ -7,7 +7,8 @@ var objectAssign = require('object-assign'),
     aliases: [],
     description: 'Display this help text.',
     afterPrintCallback: noop,
-    hideDepsMessage: false
+    hideDepsMessage: false,
+    hideEmpty: false
   };
 
 module.exports = function (gulp, options) {
@@ -96,7 +97,10 @@ module.exports = function (gulp, options) {
   gulp.task('help', options.description, function () {
     var marginData = calculateMargin(gulp.tasks);
     var margin = marginData.margin;
-    var hideDepsMessage = options.hideDepsMessage;
+    var hideDepsMessageOpt = options.hideDepsMessage;
+    var hideEmptyOpt = options.hideEmpty;
+    var showAllTasks = process.argv.indexOf('--all') !== -1;
+    var afterPrintCallback = options.afterPrintCallback;
 
     // set options buffer if the tasks array has options
     var optionsBuffer = marginData.hasOptions ? '  --' : '';
@@ -107,8 +111,12 @@ module.exports = function (gulp, options) {
     console.log('');
     console.log(chalk.underline('Available tasks'));
     Object.keys(gulp.tasks).sort().forEach(function (name) {
-      if (gulp.tasks[name].help || process.argv.indexOf('--all') !== -1) {
+      if (gulp.tasks[name].help || showAllTasks) {
         var help = gulp.tasks[name].help || {message: '', options: {}};
+
+        if (!showAllTasks && help.message === '' && hideEmptyOpt) {
+          return; //skip task
+        }
         var args = [' ', chalk.cyan(name)];
 
         args.push(new Array(margin - name.length + 1 + optionsBuffer.length).join(' '));
@@ -121,7 +129,7 @@ module.exports = function (gulp, options) {
           args.push(help.aliases);
         }
 
-        if (help.depsMessage && !hideDepsMessage) {
+        if (help.depsMessage && !hideDepsMessageOpt) {
           args.push(chalk.cyan(help.depsMessage));
         }
 
@@ -138,8 +146,8 @@ module.exports = function (gulp, options) {
       }
     });
     console.log('');
-    if (options.afterPrintCallback) {
-      options.afterPrintCallback(gulp.tasks);
+    if (afterPrintCallback) {
+      afterPrintCallback(gulp.tasks);
     }
   }, options);
 

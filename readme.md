@@ -43,7 +43,16 @@ Type: `string`
 Type: `string | boolean`
 
 Custom help message as a string.
-If you want to hide the task from the help menu, supply `false`.
+
+If you want to hide the task from the help menu, supply `false`
+
+```js
+gulp.task('task-hidden-from-help', false, function () {
+  // ...
+});
+```
+
+However, if the `--all` flag is provided, even these tasks will be shown. (i.e. `gulp help --all`)
 
 #### [deps](https://github.com/gulpjs/gulp/blob/master/docs/API.md#deps)
 
@@ -57,23 +66,7 @@ Type: `function`
 
 Type: `Array`
 
-List of aliases for this task.
-
-## Hide Tasks
-
-You can optionally hide a target from showing up in the help menu by passing `false` as the help argument, e.g.
-
-```js
-gulp.task('task-hidden-from-help', false, function () {
-  // ...
-});
-```
-
-However, if the `--all` flag is provided, even these tasks will be shown. (i.e. `gulp help --all`)
-
-## Aliases
-
-You can optionally add aliases to your targets by supplying an object with an aliases array, e.g.
+List of aliases for this task
 
 ```js
 gulp.task('version', 'prints the version.', [], function() {
@@ -87,9 +80,11 @@ which results in
 
 ![](screenshot-aliases.png)
 
-## Options
+#### taskOptions.options
 
-You can optionally pass options to your targets by supplying an object with an options object, e.g.
+Type: `Object`
+
+Object documenting options which can be passed to your task
 
 ```js
 gulp.task('version', 'prints the version.', [], function () {
@@ -106,44 +101,15 @@ which results in
 
 ![](screenshot-options.png)
 
-## Override default help message
+## require('gulp-help')(require('gulp'), options);
 
-```js
-require('gulp-help')(require('gulp'), { description: 'you are looking at it.', aliases: ['h', '?'] });
-```
+These are all the options available to be passed to the `gulp-help` instance, NOT individual tasks.
 
-Then, calling
-
-```shell
-$ gulp      #or
-$ gulp help #or
-$ gulp h    #or
-$ gulp ?
-```
-
-will now result in
-
-![](screenshot-override-default.png)
-
-## Post-help callback
-
-You can define a function to run after the default help task runs.
-
-```js
-require('gulp-help')(gulp, {
-  afterPrintCallback: function(tasks) {
-    console.log(tasks);
-  }
-});
-```
-
-## Hide task dependencies
-
-By default, the dependencies of a task will be listed behind its help message. To hide them:
-
-```js
-require('gulp-help')(require('gulp'), {hideDepsMessage:true});
-```
+- `description` - modifies the default help message
+- `aliases` - adds aliases to the default help task
+- `hideEmpty` - hide all tasks with no help message defined. Useful when including 3rd party tasks
+- `hideDepsMessage` - hide all task dependencies
+- `afterPrintCallback` - a function to run after the default help task runs
 
 ## License
 
