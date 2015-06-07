@@ -1,4 +1,4 @@
-var _ = require('lodash'),
+var objectAssign = require('object-assign'),
   chalk = require('chalk'),
   attachHelp = require('./lib/attach-help.js'),
   calculateMargin = require('./lib/calculate-margin.js'),
@@ -13,7 +13,7 @@ var _ = require('lodash'),
 module.exports = function (gulp, options) {
   var originalTaskFn = gulp.task;
 
-  options = _.defaults({}, options, DEFAULT_OPTIONS);
+  options = objectAssign({}, DEFAULT_OPTIONS, options);
 
   /**
    * gulp.task(name[, help, deps, fn, taskOptions])
@@ -79,7 +79,7 @@ module.exports = function (gulp, options) {
 
     task = gulp.tasks[name];
 
-    taskOptions = _.assign({
+    taskOptions = objectAssign({
       aliases: []
     }, taskOptions);
 

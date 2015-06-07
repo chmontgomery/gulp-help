@@ -69,10 +69,10 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^1.0.0",
-    "lodash": "^3.9.3"
+    "object-assign": "^3.0.0"
   },
   "devDependencies": {
-    "mocha": "*",
+    "mocha": "^2.2.5",
     "should": "^6.0.3",
     "sinon": "^1.14.1"
   }

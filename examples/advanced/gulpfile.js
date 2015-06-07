@@ -1,4 +1,4 @@
-var gulp = require('../../index.js')(require('gulp'));
+var gulp = require('../../index.js')(require('gulp'), { aliases: ['h', '?'] });
 
 // --------------------------------------------------------------------------------------
 // tasks
