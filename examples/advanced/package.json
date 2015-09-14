@@ -2,11 +2,11 @@
   "name": "advanced",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "gulpfile.js",
   "author": "",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "gulp": "3.9.0"
+    "gulp": "gulpjs/gulp#4.0"
   }
 }
