@@ -22,7 +22,7 @@ gulp.task('task-hidden-from-help', false, function () {
 
 However, if the `--all` flag is provided, even these tasks will be shown. (i.e. `gulp help --all`)
 
-Also can provide an object to support aliases and task options
+Also can provide an object to support aliases and task flags
 
 #### description.aliases
 
@@ -37,16 +37,16 @@ gulp.task('version', {
 }, fn);
 ```
 
-#### description.options
+#### description.flags
 
 Type: `Object`
 
-Object documenting options which can be passed to your task
+Object documenting flags which can be passed to your task
 
 ```js
 gulp.task('version', {
   description: 'prints the version.',
-  options: {
+  flags: {
     'env=prod': 'description of env, perhaps with available values',
     'key=val': 'description of key & val',
     'key': 'description of key'
@@ -70,7 +70,17 @@ gulp.task('name', false, fn);
 gulp.task('name', {
   description: 'description',
   aliases: ['v', 'V'],
-  options: {
+  flags: {
+    'env=prod': 'description of env, perhaps with available values',
+    'key=val': 'description of key & val',
+    'key': 'description of key'
+  }
+}, fn);
+gulp.task({
+  name: 'name',
+  description: 'description',
+  aliases: ['v', 'V'],
+  flags: {
     'env=prod': 'description of env, perhaps with available values',
     'key=val': 'description of key & val',
     'key': 'description of key'
