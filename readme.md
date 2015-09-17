@@ -1,7 +1,50 @@
 # [gulp](https://github.com/gulpjs/gulp)-help [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 > Adds a default help task to gulp and provides the ability to add custom help messages to your gulp tasks
 
-This version is for gulp4 and is a work in progress...
+## Install
+
+```bash
+$ npm install --save-dev gulp-help
+```
+
+## Usage
+
+Before defining any tasks, add `gulp help` to your gulp instance
+
+```js
+// gulpfile.js
+var gulp = require('gulp-help')(require('gulp'));
+```
+
+Next, define help text for each custom task
+
+```js
+// gulpfile.js
+function clean(done) {
+  //...
+  done();
+}
+clean.description = 'clean all the files';
+
+function coffee(done) {
+  //...
+  done();
+}
+coffee.description = 'Compile coffeescript';
+
+var build = gulp.series(clean, coffee);
+build.description = 'this builds all the things';
+
+gulp.task('build', build);
+
+gulp.task('clean', clean);
+
+gulp.task(coffee);
+```
+
+Now show that help via `gulp help`
+
+![](screenshot.png)
 
 ## License
 
