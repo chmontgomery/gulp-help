@@ -1,4 +1,5 @@
 var objectAssign = require('object-assign'),
+  chalk = require('chalk'),
   logTasks = require('./lib/logTasks'),
   DEFAULT_OPTIONS = {
     helpTaskName: 'help',
@@ -6,8 +7,14 @@ var objectAssign = require('object-assign'),
     helpTaskAliases: ['h'],
     hideHelpTask: false,
     hideAliasTasks: true,
+    hideDefaultTask: true,
     availableTasksHeadingText: 'Available tasks',
-    aliasesLabel: 'Aliases:'
+    aliasesLabel: 'Aliases:',
+    styles: {
+      taskName: chalk.cyan,
+      availableTasksHeading: chalk.underline,
+      description: null
+    }
   };
 
 module.exports = function (gulp, options) {
@@ -59,7 +66,9 @@ module.exports = function (gulp, options) {
 
   // do not add default task if one already exists
   if (tasks['default'] === undefined) {
-    gulp.task('default', gulp.series(options.helpTaskName));
+    var defaultTaskFn = gulp.series(options.helpTaskName);
+    defaultTaskFn.hide = options.hideDefaultTask;
+    gulp.task('default', defaultTaskFn);
   }
 
   return gulp;
