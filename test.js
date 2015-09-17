@@ -8,10 +8,11 @@ describe('help', function () {
     var tasks = gulp.registry()._tasks;
     var taskNames = Object.keys(tasks);
 
-    taskNames.length.should.eql(2);
+    taskNames.length.should.eql(3);
     taskNames[0].should.eql('help');
     tasks[taskNames[0]].description.should.eql('Display this help text.');
-    taskNames[1].should.eql('default');
+    taskNames[1].should.eql('h');
+    taskNames[2].should.eql('default');
     should(tasks[taskNames[1]].description).eql(undefined);
 
     gulp.tree({deep: true}).should.deepEqual([
@@ -19,19 +20,36 @@ describe('help', function () {
         label: 'help', type: 'task', nodes: []
       },
       {
-        label: 'default', type: 'task', nodes: [
-        {
-          "label": "<series>",
-          "nodes": [
-            {
-              "label": "help",
-              "nodes": [],
-              "type": "task"
-            }
-          ],
-          "type": "function"
-        }
-      ]
+        label: 'h', type: 'task',
+        nodes: [
+          {
+            "label": "<series>",
+            "nodes": [
+              {
+                "label": "help",
+                "nodes": [],
+                "type": "task"
+              }
+            ],
+            "type": "function"
+          }
+        ]
+      },
+      {
+        label: 'default', type: 'task',
+        nodes: [
+          {
+            "label": "<series>",
+            "nodes": [
+              {
+                "label": "help",
+                "nodes": [],
+                "type": "task"
+              }
+            ],
+            "type": "function"
+          }
+        ]
       }
     ])
   });

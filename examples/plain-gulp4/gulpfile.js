@@ -1,3 +1,4 @@
+// mix in gulp-help to plain gulp4
 var gulp = require('../../index.js')(require('gulp'));
 
 // --------------------------------------------------------------------------------------
@@ -49,7 +50,3 @@ gulp.task('sassy', sass);
 gulp.task(uglify);
 
 gulp.task('lint', lint);
-
-gulp.task('a-super-long-task-name-to-see-margins', function (done) {
-  done();
-});

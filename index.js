@@ -1,47 +1,59 @@
-var chalk = require('chalk'),
-  logger = require('./lib/logger'),
-  DEFAULT_HELP_TEXT = 'Display this help text.';
+var objectAssign = require('object-assign'),
+  logTasks = require('./lib/logTasks'),
+  DEFAULT_OPTIONS = {
+    helpTaskName: 'help',
+    helpText: 'Display this help text.',
+    helpTaskAliases: ['h'],
+    availableTasksHeadingText: 'Available tasks',
+    aliasesLabel: 'Aliases:'
+  };
 
-module.exports = function (gulp) {
+module.exports = function (gulp, options) {
+
+  var tasks = gulp.registry()._tasks,
+    originalTaskFn = gulp.task;
+
+  gulp.task = function(name, fn) {
+    if (!fn && typeof name === 'function') {
+      fn = name;
+      name = undefined;
+    }
+
+    name = name || fn.name || fn.displayName;
+
+    if (typeof name !== 'string') {
+      // invalid state. Just ignore and let gulp deal with it
+      return originalTaskFn.call(gulp, name, fn);
+    }
+
+    // define this task before defining its aliases below
+    var result = originalTaskFn.call(gulp, name, fn);
+
+    // add alias tasks
+    if (fn && fn.aliases && fn.aliases.length > 0) {
+      fn.aliases.forEach(function (alias) {
+        gulp.task(alias, gulp.series(name));
+      });
+    }
+
+    return result;
+  };
+
+  options = objectAssign({}, DEFAULT_OPTIONS, options);
 
   function help(done) {
-    logTasks(gulp);
+    logTasks(gulp, options);
     done();
   }
+  help.description = options.helpText;
+  help.aliases = options.helpTaskAliases;
 
-  help.description = DEFAULT_HELP_TEXT;
-
-  gulp.task('help', help);
+  gulp.task(options.helpTaskName, help);
 
   // do not add default task if one already exists
-  if (gulp.registry()._tasks['default'] === undefined) {
-    gulp.task('default', gulp.series('help'));
+  if (tasks['default'] === undefined) {
+    gulp.task('default', gulp.series(options.helpTaskName));
   }
 
   return gulp;
 };
-
-function logTasks(localGulp) {
-  var tasks = localGulp.registry()._tasks,
-    margin = Object.keys(tasks).reduce(function (m, taskName) {
-      if (m > taskName.length) {
-        return m;
-      }
-      return taskName.length;
-    }, 0);
-
-  logger('\n' + chalk.underline('Available tasks'));
-
-  Object.keys(tasks).forEach(function (taskName) {
-
-    var description = tasks[taskName].description || '';
-    var args = [' ', chalk.cyan(taskName)];
-
-    args.push(new Array(margin - taskName.length).join(' '));
-    args.push(description);
-
-    logger.apply(console, args);
-  });
-
-  logger('');
-}
