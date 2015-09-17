@@ -1,10 +1,13 @@
 # [gulp](https://github.com/gulpjs/gulp)-help [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 > Adds a default help task to gulp and provides the ability to add custom help messages to your gulp tasks
 
+NOTE: this version only works with [gulp 4](https://github.com/gulpjs/gulp/tree/4.0). For `gulp-help` that works with
+prior versions of gulp, use `v1.6.1`.
+
 ## Install
 
 ```bash
-$ npm install --save-dev gulp-help
+$ npm install --save-dev chmontgomery/gulp-help#gulp4
 ```
 
 ## Usage
