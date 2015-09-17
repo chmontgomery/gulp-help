@@ -4,6 +4,8 @@ var objectAssign = require('object-assign'),
     helpTaskName: 'help',
     helpText: 'Display this help text.',
     helpTaskAliases: ['h'],
+    hideHelpTask: false,
+    hideAliasTasks: true,
     availableTasksHeadingText: 'Available tasks',
     aliasesLabel: 'Aliases:'
   };
@@ -13,6 +15,7 @@ module.exports = function (gulp, options) {
   var tasks = gulp.registry()._tasks,
     originalTaskFn = gulp.task;
 
+  // define new gulp task fn
   gulp.task = function(name, fn) {
     if (!fn && typeof name === 'function') {
       fn = name;
@@ -32,7 +35,9 @@ module.exports = function (gulp, options) {
     // add alias tasks
     if (fn && fn.aliases && fn.aliases.length > 0) {
       fn.aliases.forEach(function (alias) {
-        gulp.task(alias, gulp.series(name));
+        var aliasTaskFn = gulp.series(name);
+        aliasTaskFn.hide = options.hideAliasTasks;
+        gulp.task(alias, aliasTaskFn);
       });
     }
 
@@ -41,12 +46,14 @@ module.exports = function (gulp, options) {
 
   options = objectAssign({}, DEFAULT_OPTIONS, options);
 
+  // attach gulp help task
   function help(done) {
     logTasks(gulp, options);
     done();
   }
   help.description = options.helpText;
   help.aliases = options.helpTaskAliases;
+  help.hide = options.hideHelpTask;
 
   gulp.task(options.helpTaskName, help);
 

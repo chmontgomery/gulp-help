@@ -32,12 +32,19 @@ var lint = function (done) {
   done();
 };
 
+var invisibleTask = function (done) {
+  console.log('THIS TASK SHOULD BE INVISIBLE FROM THE HELP MENU!');
+  done();
+};
+invisibleTask.description = 'ERROR: THIS TASK SHOULD BE INVISIBLE FROM THE HELP MENU!';
+invisibleTask.hide = true; // allow hiding tasks
+
 var build = gulp.series(
   clean,
   gulp.parallel(sass, gulp.series(coffee, uglify))
 );
 build.description = "this builds all the things";
-build.aliases = ['b', 'B'];
+build.aliases = ['b', 'B']; // allow aliasing tasks
 
 var version = function (done) {
   console.log('showing you my version...');
@@ -57,6 +64,8 @@ gulp.task('sassy', sass);
 gulp.task(uglify);
 
 gulp.task('lint', lint);
+
+gulp.task('INVISIBLE', invisibleTask);
 
 gulp.task('version', version);
 
