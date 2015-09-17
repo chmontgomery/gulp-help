@@ -73,12 +73,11 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^1.1.1",
-    "minimist": "^1.2.0",
-    "object-assign": "^3.0.0"
+    "object-assign": "^4.0.1"
   },
   "devDependencies": {
-    "mocha": "^2.2.5",
-    "should": "^6.0.3",
-    "sinon": "^1.14.1"
+    "mocha": "^2.3.2",
+    "should": "^7.1.0",
+    "gulp": "gulpjs/gulp#4.0"
   }
 }
