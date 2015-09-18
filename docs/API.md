@@ -1,4 +1,4 @@
-# New task API [WIP]
+# New task API [Not Yet Implemented]
 
 ### gulp.task([name, description,]fn)
 
@@ -88,11 +88,14 @@ gulp.task({
 }, fn);
 ```
 
-gulp4 ways of listing tasks
+# Compatible with gulp 4
+
+gulp 4 has these two built-in ways of listing tasks:
 
 ```
 gulp --tasks
 gulp --tasks-simple
 ```
 
-Making the above calls should use `gulp-help`'s provided descriptions to also print nicely 
+Making the above calls should use `gulp-help`'s provided descriptions. This means the `description` provided to the new
+task function is attached to the `fn`, [following gulp's standards](https://github.com/gulpjs/gulp/blob/4.0/docs/API.md#fndescription)
