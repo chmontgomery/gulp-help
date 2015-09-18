@@ -15,7 +15,8 @@ var objectAssign = require('object-assign'),
       taskName: chalk.cyan,
       tasksHeading: chalk.underline,
       description: null
-    }
+    },
+    afterPrintCallback: function() {}
   };
 
 module.exports = function (gulp, options) {
