@@ -1,4 +1,4 @@
-# [gulp](https://github.com/gulpjs/gulp)-help [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
+# [gulp](https://github.com/gulpjs/gulp)-help [![Build Status][travis-image]][travis-url]
 > Adds a default help task to gulp and provides the ability to add custom help messages to your gulp tasks
 
 NOTE: this version only works with [gulp 4](https://github.com/gulpjs/gulp/tree/4.0). For `gulp-help` that works with
@@ -59,5 +59,5 @@ MIT © [Chris Montgomery](http://www.chrismontgomery.info/)
 
 [npm-url]: https://npmjs.org/package/gulp-help
 [npm-image]: http://img.shields.io/npm/v/gulp-help.svg
-[travis-image]: https://travis-ci.org/chmontgomery/gulp-help.svg?branch=master
+[travis-image]: https://travis-ci.org/chmontgomery/gulp-help.svg?branch=gulp4
 [travis-url]: https://travis-ci.org/chmontgomery/gulp-help
