@@ -13,7 +13,7 @@ var objectAssign = require('object-assign'),
     postHelpText: '',
     styles: {
       taskName: chalk.cyan,
-      availableTasksHeading: chalk.underline,
+      tasksHeading: chalk.underline,
       description: null
     }
   };
