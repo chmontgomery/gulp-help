@@ -49,6 +49,10 @@ Now show that help via `gulp help`
 
 ![](screenshot.png)
 
+## `gulpHelp(gulpInstance[, options])`
+
+`gulp-help` is completely customizable. [See here for overridable options](index.js#L4).
+
 ## License
 
 MIT © [Chris Montgomery](http://www.chrismontgomery.info/)
