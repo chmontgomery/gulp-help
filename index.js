@@ -1,7 +1,7 @@
 var objectAssign = require('object-assign'),
-  chalk = require('chalk'),
   logTasks = require('./lib/logTasks'),
-  DEFAULT_OPTIONS = {
+  DEFAULT_THEME = require('./themes/default'),
+  DEFAULT_OPTIONS = objectAssign({
     helpTaskName: 'help',
     helpText: 'Display this help text.',
     helpTaskAliases: ['h'],
@@ -11,13 +11,9 @@ var objectAssign = require('object-assign'),
     tasksHeadingText: '\nAvailable tasks',
     aliasesLabel: 'Aliases:',
     postHelpText: '',
-    styles: {
-      taskName: chalk.cyan,
-      tasksHeading: chalk.underline,
-      description: null
-    },
-    afterPrintCallback: function() {}
-  };
+    afterPrintCallback: function () {
+    }
+  }, DEFAULT_THEME);
 
 module.exports = function (gulp, options) {
 
@@ -25,7 +21,7 @@ module.exports = function (gulp, options) {
     originalTaskFn = gulp.task;
 
   // define new gulp task fn
-  gulp.task = function(name, fn) {
+  gulp.task = function (name, fn) {
     if (!fn && typeof name === 'function') {
       fn = name;
       name = undefined;
@@ -60,6 +56,7 @@ module.exports = function (gulp, options) {
     logTasks(gulp, options);
     done();
   }
+
   help.description = options.helpText;
   help.aliases = options.helpTaskAliases;
   help.hide = options.hideHelpTask;
