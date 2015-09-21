@@ -76,8 +76,9 @@
     "object-assign": "^4.0.1"
   },
   "devDependencies": {
+    "gulp": "gulpjs/gulp#4.0",
     "mocha": "^2.3.2",
     "should": "^7.1.0",
-    "gulp": "gulpjs/gulp#4.0"
+    "sinon": "^1.16.1"
   }
 }

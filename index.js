@@ -11,6 +11,8 @@ var objectAssign = require('object-assign'),
     tasksHeadingText: '\nAvailable tasks',
     aliasesLabel: 'Aliases:',
     postHelpText: '',
+    taskLinePrefix: '  ',
+    flagPrefix: '   --',
     afterPrintCallback: function () {
     }
   }, DEFAULT_THEME);
