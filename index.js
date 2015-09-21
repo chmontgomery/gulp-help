@@ -17,7 +17,7 @@ var objectAssign = require('object-assign'),
 
 module.exports = function (gulp, options) {
 
-  var tasks = gulp.registry()._tasks,
+  var tasks = gulp.registry().tasks(),
     originalTaskFn = gulp.task;
 
   // define new gulp task fn
