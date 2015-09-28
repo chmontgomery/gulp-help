@@ -1,0 +1,12 @@
+{
+  "name": "plain-gulp4",
+  "version": "0.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "gulpjs/gulp#4.0"
+  }
+}
