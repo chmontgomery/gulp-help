@@ -53,6 +53,10 @@ Now show that help via `gulp help`
 
 `gulp-help` is completely customizable. [See here for overridable options](index.js#L4).
 
+## Pre-built themes
+
+Check out the [themes folder](themes) for all available, pre-built themes.
+
 ## License
 
 MIT © [Chris Montgomery](http://www.chrismontgomery.info/)
