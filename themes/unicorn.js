@@ -9,6 +9,5 @@ module.exports = {
     flagName: chalk.italic.blue,
     flagPrefix: null,
     flagDescription: null
-    
   }
 };
