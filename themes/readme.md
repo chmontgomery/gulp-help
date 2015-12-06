@@ -24,5 +24,8 @@ Check out the [themes folder](../themes) for all available, pre-built themes.
 ## Unicorn
 No screenshot available  
 
+## London
+No screenshot available  
+
 You can easily create your own custom theme. [See here for overridable options](../index.js#L4).
 We are also accepting PRs if you would like to share your custom theme with others.
