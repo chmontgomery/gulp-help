@@ -12,12 +12,12 @@ describe('help', function () {
 
     taskNames.length.should.eql(3);
     taskNames[0].should.eql('help');
-    tasks[taskNames[0]].description.should.eql('Display this help text.');
+    gulp.task(taskNames[0]).description.should.eql('Display this help text.');
     taskNames[1].should.eql('h');
     taskNames[2].should.eql('default');
-    should(tasks[taskNames[1]].description).eql(undefined);
+    should(gulp.task(taskNames[1]).description).eql(undefined);
 
-    gulp.tree({deep: true}).should.deepEqual([
+    gulp.tree({deep: true}).nodes.should.deepEqual([
       {
         label: 'help', type: 'task', nodes: []
       },
