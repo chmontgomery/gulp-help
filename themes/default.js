@@ -8,6 +8,8 @@ module.exports = {
     description: null,
     flagName: chalk.cyan,
     flagPrefix: null,
-    flagDescription: null
+    flagDescription: null,
+    aliasesLabel: null,
+    aliasDescription: null
   }
 };
