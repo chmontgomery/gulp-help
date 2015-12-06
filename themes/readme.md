@@ -21,11 +21,11 @@ Check out the [themes folder](../themes) for all available, pre-built themes.
 ## Solarized Light
 ![](screenshots/solarized_light.png)  
 
-## Unicorn
-No screenshot available  
-
 ## London
-No screenshot available  
+![](screenshots/london.png)
+
+## Unicorn
+![](screenshots/unicorn.png)
 
 You can easily create your own custom theme. [See here for overridable options](../index.js#L4).
 We are also accepting PRs if you would like to share your custom theme with others.
