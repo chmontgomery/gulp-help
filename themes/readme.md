@@ -4,7 +4,7 @@ To use a different theme, simply require it
 
 ```js
 // gulpfile.js
-var gulp = require('gulp-help')(require('gulp'), require('gulp/themes/lemonade'));
+var gulp = require('gulp-help')(require('gulp'), require('gulp-help/themes/lemonade'));
 ```
 
 Check out the [themes folder](../themes) for all available, pre-built themes.
