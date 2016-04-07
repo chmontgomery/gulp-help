@@ -126,7 +126,7 @@ module.exports = function (gulp, options) {
         }
 
         if (help.aliases) {
-          args.push(help.aliases);
+          args.push(chalk.yellow(help.aliases));
         }
 
         if (help.depsMessage && !hideDepsMessageOpt) {
