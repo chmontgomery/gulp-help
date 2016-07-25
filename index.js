@@ -122,7 +122,7 @@ module.exports = function (gulp, options) {
         args.push(new Array(margin - name.length + 1 + optionsBuffer.length).join(' '));
 
         if (help.message) {
-          args.push(help.message);
+          args.push(help.message.replace(/\n/g, '\n    ' + new Array(margin + 1 + optionsBuffer.length).join(' ')));
         }
 
         if (help.aliases) {
