@@ -6,6 +6,7 @@ var objectAssign = require('object-assign'),
   DEFAULT_OPTIONS = {
     aliases: [],
     description: 'Display this help text.',
+    beforePrintCallback: noop,
     afterPrintCallback: noop,
     hideDepsMessage: false,
     hideEmpty: false
@@ -100,7 +101,12 @@ module.exports = function (gulp, options) {
     var hideDepsMessageOpt = options.hideDepsMessage;
     var hideEmptyOpt = options.hideEmpty;
     var showAllTasks = process.argv.indexOf('--all') !== -1;
+    var beforePrintCallback = options.beforePrintCallback;
     var afterPrintCallback = options.afterPrintCallback;
+
+    if (beforePrintCallback) {
+      beforePrintCallback(gulp.tasks);
+    }
 
     // set options buffer if the tasks array has options
     var optionsBuffer = marginData.hasOptions ? '  --' : '';

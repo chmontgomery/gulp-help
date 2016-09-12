@@ -111,6 +111,7 @@ These are all the options available to be passed to the `gulp-help` instance, NO
 - `aliases` - adds aliases to the default help task
 - `hideEmpty` - hide all tasks with no help message defined. Useful when including 3rd party tasks
 - `hideDepsMessage` - hide all task dependencies
+- `beforePrintCallback` - a function to run before the default help task runs
 - `afterPrintCallback` - a function to run after the default help task runs
 
 ## License
