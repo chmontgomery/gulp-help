@@ -88,13 +88,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "chalk": "^1.1.1",
-    "object-assign": "^4.0.1"
+    "chalk": "1.1.1",
+    "object-assign": "4.0.1"
   },
   "devDependencies": {
-    "gulp": "gulpjs/gulp#4.0",
-    "mocha": "^2.3.2",
-    "should": "^7.1.0",
-    "sinon": "^1.16.1"
+    "gulp": "4.0.0",
+    "mocha": "2.3.2",
+    "should": "7.1.0",
+    "sinon": "1.16.1"
   }
 }

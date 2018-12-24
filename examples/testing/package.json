@@ -7,6 +7,6 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "gulp": "gulpjs/gulp#4.0"
+    "gulp": "4.0.0"
   }
 }
